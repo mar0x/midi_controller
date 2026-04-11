@@ -20,3 +20,4 @@
 *.mov
 video/*
 **/build
+**/.history
