@@ -5,6 +5,641 @@
 	(uuid "9d1b4bd1-d946-4bbd-b302-260c54dfd9a5")
 	(paper "A4")
 	(lib_symbols
+		(symbol "5-way-buttons:SW_Push_LEDx5"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 0 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_Push_LEDx5"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Push button switch with LED, generic"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "switch normally-open pushbutton push-button LED"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_0_0"
+				(polyline
+					(pts
+						(xy -2.54 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.286 -1.524) (xy -2.286 -2.159) (xy -1.651 -2.159)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.286 -2.159) (xy -1.016 -0.889)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.016 -1.524) (xy -1.016 -2.159) (xy -0.381 -2.159)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.016 -2.159) (xy 0.254 -0.889)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 1.27) (xy -0.635 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 0) (xy 1.27 1.27) (xy 1.27 -1.27) (xy -0.635 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_0_1"
+				(circle
+					(center -2.032 2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 3.81) (xy 0 5.588)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 3.81) (xy -2.54 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_1_1"
+				(rectangle
+					(start -3.175 5.715)
+					(end 3.175 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_2_1"
+				(rectangle
+					(start -3.175 5.715)
+					(end 3.175 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_3_1"
+				(rectangle
+					(start -3.175 5.715)
+					(end 3.175 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_4_1"
+				(rectangle
+					(start -3.175 5.715)
+					(end 3.175 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "SW_Push_LEDx5_5_1"
+				(rectangle
+					(start -3.175 5.715)
+					(end 3.175 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Conn_01x16_Pin"
 			(pin_names
 				(offset 1.016)
@@ -2577,301 +3212,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Switch:SW_Push_LED"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "SW"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_Push_LED"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Push button switch with LED, generic"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "switch normally-open pushbutton push-button LED"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "SW_Push_LED_0_0"
-				(polyline
-					(pts
-						(xy -2.54 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.286 -1.524) (xy -2.286 -2.159) (xy -1.651 -2.159)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.286 -2.159) (xy -1.016 -0.889)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.016 -1.524) (xy -1.016 -2.159) (xy -0.381 -2.159)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.016 -2.159) (xy 0.254 -0.889)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.635 1.27) (xy -0.635 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.635 0) (xy 1.27 1.27) (xy 1.27 -1.27) (xy -0.635 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-			)
-			(symbol "SW_Push_LED_0_1"
-				(circle
-					(center -2.032 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 3.81) (xy 0 5.588)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 3.81) (xy -2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 2.54 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "SW_Push_LED_1_1"
-				(rectangle
-					(start -3.175 5.715)
-					(end 3.175 -2.54)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:+5V"
 			(power global)
 			(pin_numbers
@@ -3701,6 +4041,12 @@
 		(uuid "a55f9464-3d2f-4a6e-9ac4-9badc7fbea3d")
 	)
 	(junction
+		(at 121.92 162.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "abe78293-22a9-4f41-872c-5238e43f13c6")
+	)
+	(junction
 		(at 82.55 44.45)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3962,6 +4308,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 162.56) (xy 123.19 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67bd6529-ee76-46a5-a9bd-16ca1a4e59d0")
+	)
+	(wire
+		(pts
 			(xy 132.08 38.1) (xy 133.35 38.1)
 		)
 		(stroke
@@ -4049,6 +4405,16 @@
 			(type default)
 		)
 		(uuid "7edfff63-17f9-433f-bc4b-153bea41e4c3")
+	)
+	(wire
+		(pts
+			(xy 121.92 162.56) (xy 121.92 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84ef5223-6805-46fd-ba75-186b75163074")
 	)
 	(wire
 		(pts
@@ -4312,6 +4678,16 @@
 	)
 	(wire
 		(pts
+			(xy 123.19 160.02) (xy 121.92 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d599ad50-9e74-4367-b277-8e8e903e95b8")
+	)
+	(wire
+		(pts
 			(xy 36.83 44.45) (xy 58.42 44.45)
 		)
 		(stroke
@@ -4349,6 +4725,26 @@
 			(type default)
 		)
 		(uuid "dd4d9a8a-66e1-4d7c-b589-a641f08f9b2e")
+	)
+	(wire
+		(pts
+			(xy 133.35 160.02) (xy 142.24 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df2d3614-bc44-490c-ac39-c66c110d480f")
+	)
+	(wire
+		(pts
+			(xy 121.92 160.02) (xy 121.92 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2396b60-840f-432b-a707-683b362df4d8")
 	)
 	(wire
 		(pts
@@ -4671,6 +5067,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "ENC_BTN"
+		(shape output)
+		(at 142.24 160.02 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "60e99f66-e337-40aa-82a1-3cdea5fc8d50")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 153.5104 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -5347,6 +5767,140 @@
 		)
 	)
 	(symbol
+		(lib_id "5-way-buttons:SW_Push_LEDx5")
+		(at 128.27 111.76 0)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02e558a4-57ee-44dd-ae88-73b61af50546")
+		(property "Reference" "SW6"
+			(at 128.27 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push_LEDx5"
+			(at 128.27 104.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib:SW_PUSH_12mm_LEDx5"
+			(at 128.27 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.27 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch with LED, generic"
+			(at 128.27 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "5"
+			(uuid "ae413ee6-ac45-4c06-9708-859fc2b0c50a")
+		)
+		(pin "2"
+			(uuid "f8435928-e9fa-42bb-b5e1-bca83473bfd1")
+		)
+		(pin "3"
+			(uuid "f52ba6c8-b23a-45b6-a19e-5c7464d827f7")
+		)
+		(pin "19"
+			(uuid "0217e405-b9a6-4c94-97b1-cce859f8555f")
+		)
+		(pin "7"
+			(uuid "b91db904-848b-492b-9bbb-568dd2787a24")
+		)
+		(pin "8"
+			(uuid "6a694083-0e5a-4245-bfb6-18c6689a7943")
+		)
+		(pin "6"
+			(uuid "7ab91a3b-d2fe-49f0-9864-6dcfb9b96dc5")
+		)
+		(pin "20"
+			(uuid "b128dd17-1ec9-4c1e-bded-431a6d372a58")
+		)
+		(pin "15"
+			(uuid "b405c084-12ca-461f-9f4b-7a27590dffa8")
+		)
+		(pin "18"
+			(uuid "ac93e42c-0ae7-4c6f-9434-11700e15bb37")
+		)
+		(pin "16"
+			(uuid "0c91935a-2c10-4fc6-b6dd-964b6dfb34cb")
+		)
+		(pin "17"
+			(uuid "a6da892b-95d7-476a-b60b-1a8fdd992c2c")
+		)
+		(pin "1"
+			(uuid "cf0226ca-f2ec-400e-801d-bff33956a746")
+		)
+		(pin "4"
+			(uuid "d2c74800-5913-4b6a-a8bd-b6ab80355ca5")
+		)
+		(pin "14"
+			(uuid "8245b365-ec8e-4a82-85b4-84ca6de47a61")
+		)
+		(pin "9"
+			(uuid "43af7462-2e6e-48b3-9d9f-03192163c4b7")
+		)
+		(pin "10"
+			(uuid "119aa948-049b-4796-b7d6-b1bf589cb064")
+		)
+		(pin "11"
+			(uuid "00213107-de38-46d4-921f-ee22dac12118")
+		)
+		(pin "12"
+			(uuid "e2995ebb-a04f-4716-8c87-dc0bd4045690")
+		)
+		(pin "13"
+			(uuid "61d6d2ff-9fb2-4275-afff-ad88c0d92d8d")
+		)
+		(instances
+			(project "midi_pro_micro"
+				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
+					(reference "SW6")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 96.52 85.09 0)
 		(unit 1)
@@ -5420,92 +5974,6 @@
 			(project "midi_pro_micro"
 				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
 					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_Push_LED")
-		(at 128.27 128.27 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "05b2cd48-0e55-484f-81dd-d2df5e3734b3")
-		(property "Reference" "SW4"
-			(at 128.27 118.11 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push_LED"
-			(at 128.27 120.65 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib:SW_PUSH_6mm_LED"
-			(at 128.27 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 128.27 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Push button switch with LED, generic"
-			(at 128.27 128.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "4"
-			(uuid "bd74cded-004f-4105-9513-ad7a0ac7376a")
-		)
-		(pin "1"
-			(uuid "345edf6a-9616-4e72-a33d-aef7bcae3430")
-		)
-		(pin "2"
-			(uuid "4799351b-4c49-4765-b6f4-41f5a7021edb")
-		)
-		(pin "3"
-			(uuid "f5564310-c61a-48bf-80f7-2eb2bd85676f")
-		)
-		(instances
-			(project "midi_pro_micro"
-				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
-					(reference "SW4")
 					(unit 1)
 				)
 			)
@@ -5588,6 +6056,140 @@
 				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
 					(reference "R10")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "5-way-buttons:SW_Push_LEDx5")
+		(at 128.27 128.27 0)
+		(unit 4)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "06e8218b-b1ef-4b4d-8a7c-d96b7fc69b8f")
+		(property "Reference" "SW6"
+			(at 128.27 118.11 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push_LEDx5"
+			(at 128.27 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib:SW_PUSH_12mm_LEDx5"
+			(at 128.27 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.27 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch with LED, generic"
+			(at 128.27 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "5"
+			(uuid "ae413ee6-ac45-4c06-9708-859fc2b0c50a")
+		)
+		(pin "2"
+			(uuid "f8435928-e9fa-42bb-b5e1-bca83473bfd1")
+		)
+		(pin "3"
+			(uuid "f52ba6c8-b23a-45b6-a19e-5c7464d827f7")
+		)
+		(pin "19"
+			(uuid "0217e405-b9a6-4c94-97b1-cce859f8555f")
+		)
+		(pin "7"
+			(uuid "b91db904-848b-492b-9bbb-568dd2787a24")
+		)
+		(pin "8"
+			(uuid "6a694083-0e5a-4245-bfb6-18c6689a7943")
+		)
+		(pin "6"
+			(uuid "7ab91a3b-d2fe-49f0-9864-6dcfb9b96dc5")
+		)
+		(pin "20"
+			(uuid "b128dd17-1ec9-4c1e-bded-431a6d372a58")
+		)
+		(pin "15"
+			(uuid "b405c084-12ca-461f-9f4b-7a27590dffa8")
+		)
+		(pin "18"
+			(uuid "ac93e42c-0ae7-4c6f-9434-11700e15bb37")
+		)
+		(pin "16"
+			(uuid "0c91935a-2c10-4fc6-b6dd-964b6dfb34cb")
+		)
+		(pin "17"
+			(uuid "a6da892b-95d7-476a-b60b-1a8fdd992c2c")
+		)
+		(pin "1"
+			(uuid "cf0226ca-f2ec-400e-801d-bff33956a746")
+		)
+		(pin "4"
+			(uuid "d2c74800-5913-4b6a-a8bd-b6ab80355ca5")
+		)
+		(pin "14"
+			(uuid "8245b365-ec8e-4a82-85b4-84ca6de47a61")
+		)
+		(pin "9"
+			(uuid "43af7462-2e6e-48b3-9d9f-03192163c4b7")
+		)
+		(pin "10"
+			(uuid "119aa948-049b-4796-b7d6-b1bf589cb064")
+		)
+		(pin "11"
+			(uuid "00213107-de38-46d4-921f-ee22dac12118")
+		)
+		(pin "12"
+			(uuid "e2995ebb-a04f-4716-8c87-dc0bd4045690")
+		)
+		(pin "13"
+			(uuid "61d6d2ff-9fb2-4275-afff-ad88c0d92d8d")
+		)
+		(instances
+			(project "midi_pro_micro"
+				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
+					(reference "SW6")
+					(unit 4)
 				)
 			)
 		)
@@ -6945,6 +7547,85 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 121.92 163.83 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "55d22629-450d-4d09-9cd0-2bf925c7550f")
+		(property "Reference" "#PWR026"
+			(at 121.92 170.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 121.92 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 121.92 163.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 121.92 163.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 121.92 163.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "68ac5eba-249c-45b8-9a71-b0f00a40c32a")
+		)
+		(instances
+			(project "midi_pro_micro"
+				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 137.16 138.43 0)
 		(unit 1)
@@ -7885,9 +8566,9 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_LED")
-		(at 128.27 111.76 0)
-		(unit 1)
+		(lib_id "5-way-buttons:SW_Push_LEDx5")
+		(at 128.27 162.56 0)
+		(unit 5)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7895,9 +8576,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8c2d3038-54e5-4dae-b35f-c0cb2b2efb45")
-		(property "Reference" "SW3"
-			(at 128.27 101.6 0)
+		(uuid "8bd3d09d-8d8e-4a94-a5b0-93e058136ade")
+		(property "Reference" "SW6"
+			(at 128.27 152.4 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7906,8 +8587,8 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push_LED"
-			(at 128.27 104.14 0)
+		(property "Value" "SW_Push_LEDx5"
+			(at 128.27 154.94 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7916,8 +8597,8 @@
 				)
 			)
 		)
-		(property "Footprint" "lib:SW_PUSH_6mm_LED"
-			(at 128.27 104.14 0)
+		(property "Footprint" "lib:SW_PUSH_12mm_LEDx5"
+			(at 128.27 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7928,7 +8609,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 104.14 0)
+			(at 128.27 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7939,7 +8620,7 @@
 			)
 		)
 		(property "Description" "Push button switch with LED, generic"
-			(at 128.27 111.76 0)
+			(at 128.27 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7949,23 +8630,71 @@
 				)
 			)
 		)
-		(pin "4"
-			(uuid "1540cc27-857a-463f-86f6-337256a6bf32")
-		)
-		(pin "1"
-			(uuid "2d93eead-69ff-4bdc-aa5d-f2dc5e78c477")
+		(pin "5"
+			(uuid "ae413ee6-ac45-4c06-9708-859fc2b0c50a")
 		)
 		(pin "2"
-			(uuid "6477c313-c78a-40ab-b597-e2b1080506e9")
+			(uuid "f8435928-e9fa-42bb-b5e1-bca83473bfd1")
 		)
 		(pin "3"
-			(uuid "11f31314-39db-4f0d-9508-606f6f4511f7")
+			(uuid "f52ba6c8-b23a-45b6-a19e-5c7464d827f7")
+		)
+		(pin "19"
+			(uuid "0217e405-b9a6-4c94-97b1-cce859f8555f")
+		)
+		(pin "7"
+			(uuid "b91db904-848b-492b-9bbb-568dd2787a24")
+		)
+		(pin "8"
+			(uuid "6a694083-0e5a-4245-bfb6-18c6689a7943")
+		)
+		(pin "6"
+			(uuid "7ab91a3b-d2fe-49f0-9864-6dcfb9b96dc5")
+		)
+		(pin "20"
+			(uuid "b128dd17-1ec9-4c1e-bded-431a6d372a58")
+		)
+		(pin "15"
+			(uuid "b405c084-12ca-461f-9f4b-7a27590dffa8")
+		)
+		(pin "18"
+			(uuid "ac93e42c-0ae7-4c6f-9434-11700e15bb37")
+		)
+		(pin "16"
+			(uuid "0c91935a-2c10-4fc6-b6dd-964b6dfb34cb")
+		)
+		(pin "17"
+			(uuid "a6da892b-95d7-476a-b60b-1a8fdd992c2c")
+		)
+		(pin "1"
+			(uuid "cf0226ca-f2ec-400e-801d-bff33956a746")
+		)
+		(pin "4"
+			(uuid "d2c74800-5913-4b6a-a8bd-b6ab80355ca5")
+		)
+		(pin "14"
+			(uuid "8245b365-ec8e-4a82-85b4-84ca6de47a61")
+		)
+		(pin "9"
+			(uuid "43af7462-2e6e-48b3-9d9f-03192163c4b7")
+		)
+		(pin "10"
+			(uuid "119aa948-049b-4796-b7d6-b1bf589cb064")
+		)
+		(pin "11"
+			(uuid "00213107-de38-46d4-921f-ee22dac12118")
+		)
+		(pin "12"
+			(uuid "e2995ebb-a04f-4716-8c87-dc0bd4045690")
+		)
+		(pin "13"
+			(uuid "61d6d2ff-9fb2-4275-afff-ad88c0d92d8d")
 		)
 		(instances
 			(project "midi_pro_micro"
 				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
-					(reference "SW3")
-					(unit 1)
+					(reference "SW6")
+					(unit 5)
 				)
 			)
 		)
@@ -8526,92 +9255,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_LED")
-		(at 128.27 144.78 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a3e203c5-a8f3-49a0-9c54-9dbefb9a28bd")
-		(property "Reference" "SW5"
-			(at 128.27 134.62 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push_LED"
-			(at 128.27 137.16 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "lib:SW_PUSH_6mm_LED"
-			(at 128.27 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 128.27 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Push button switch with LED, generic"
-			(at 128.27 144.78 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "4"
-			(uuid "e223b042-3547-4cba-8b55-f878594a079d")
-		)
-		(pin "1"
-			(uuid "0b16fcfe-8af1-44d8-825f-82b4207fc058")
-		)
-		(pin "2"
-			(uuid "2db5bbff-3627-4557-929a-ddc20adb33c1")
-		)
-		(pin "3"
-			(uuid "8b4ed6f6-ab5d-40d2-b136-3ad062a3e7ff")
-		)
-		(instances
-			(project "midi_pro_micro"
-				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
-					(reference "SW5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+5V")
 		(at 96.52 69.85 0)
 		(unit 1)
@@ -8690,9 +9333,9 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_LED")
-		(at 128.27 95.25 0)
-		(unit 1)
+		(lib_id "5-way-buttons:SW_Push_LEDx5")
+		(at 128.27 144.78 0)
+		(unit 2)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8700,9 +9343,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "a73a0929-90c3-4bf3-b613-372e14f08601")
-		(property "Reference" "SW2"
-			(at 128.27 85.09 0)
+		(uuid "c1b9adbc-ac6c-490a-98e4-b2afc97580ec")
+		(property "Reference" "SW6"
+			(at 128.27 134.62 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8711,8 +9354,8 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push_LED"
-			(at 128.27 87.63 0)
+		(property "Value" "SW_Push_LEDx5"
+			(at 128.27 137.16 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8721,8 +9364,8 @@
 				)
 			)
 		)
-		(property "Footprint" "lib:SW_PUSH_6mm_LED"
-			(at 128.27 87.63 0)
+		(property "Footprint" "lib:SW_PUSH_12mm_LEDx5"
+			(at 128.27 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8733,7 +9376,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 87.63 0)
+			(at 128.27 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8744,7 +9387,7 @@
 			)
 		)
 		(property "Description" "Push button switch with LED, generic"
-			(at 128.27 95.25 0)
+			(at 128.27 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8754,23 +9397,71 @@
 				)
 			)
 		)
-		(pin "4"
-			(uuid "d4670b3c-43a4-4803-9516-0cc2928f1d6a")
-		)
-		(pin "1"
-			(uuid "4ea9dafe-b3c8-4ab4-8e56-987781f5d37e")
+		(pin "5"
+			(uuid "ae413ee6-ac45-4c06-9708-859fc2b0c50a")
 		)
 		(pin "2"
-			(uuid "a5b378fd-07c6-4b00-b972-a26ac051cb07")
+			(uuid "f8435928-e9fa-42bb-b5e1-bca83473bfd1")
 		)
 		(pin "3"
-			(uuid "7ffba3e1-9ca8-4ccb-b2db-72e32e6fb7b1")
+			(uuid "f52ba6c8-b23a-45b6-a19e-5c7464d827f7")
+		)
+		(pin "19"
+			(uuid "0217e405-b9a6-4c94-97b1-cce859f8555f")
+		)
+		(pin "7"
+			(uuid "b91db904-848b-492b-9bbb-568dd2787a24")
+		)
+		(pin "8"
+			(uuid "6a694083-0e5a-4245-bfb6-18c6689a7943")
+		)
+		(pin "6"
+			(uuid "7ab91a3b-d2fe-49f0-9864-6dcfb9b96dc5")
+		)
+		(pin "20"
+			(uuid "b128dd17-1ec9-4c1e-bded-431a6d372a58")
+		)
+		(pin "15"
+			(uuid "b405c084-12ca-461f-9f4b-7a27590dffa8")
+		)
+		(pin "18"
+			(uuid "ac93e42c-0ae7-4c6f-9434-11700e15bb37")
+		)
+		(pin "16"
+			(uuid "0c91935a-2c10-4fc6-b6dd-964b6dfb34cb")
+		)
+		(pin "17"
+			(uuid "a6da892b-95d7-476a-b60b-1a8fdd992c2c")
+		)
+		(pin "1"
+			(uuid "cf0226ca-f2ec-400e-801d-bff33956a746")
+		)
+		(pin "4"
+			(uuid "d2c74800-5913-4b6a-a8bd-b6ab80355ca5")
+		)
+		(pin "14"
+			(uuid "8245b365-ec8e-4a82-85b4-84ca6de47a61")
+		)
+		(pin "9"
+			(uuid "43af7462-2e6e-48b3-9d9f-03192163c4b7")
+		)
+		(pin "10"
+			(uuid "119aa948-049b-4796-b7d6-b1bf589cb064")
+		)
+		(pin "11"
+			(uuid "00213107-de38-46d4-921f-ee22dac12118")
+		)
+		(pin "12"
+			(uuid "e2995ebb-a04f-4716-8c87-dc0bd4045690")
+		)
+		(pin "13"
+			(uuid "61d6d2ff-9fb2-4275-afff-ad88c0d92d8d")
 		)
 		(instances
 			(project "midi_pro_micro"
 				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
-					(reference "SW2")
-					(unit 1)
+					(reference "SW6")
+					(unit 2)
 				)
 			)
 		)
@@ -9683,6 +10374,140 @@
 			(project "midi_pro_micro"
 				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "5-way-buttons:SW_Push_LEDx5")
+		(at 128.27 95.25 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ee4969bb-6646-488f-aa01-9258303b1446")
+		(property "Reference" "SW6"
+			(at 128.27 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push_LEDx5"
+			(at 128.27 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "lib:SW_PUSH_12mm_LEDx5"
+			(at 128.27 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.27 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch with LED, generic"
+			(at 128.27 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "5"
+			(uuid "ae413ee6-ac45-4c06-9708-859fc2b0c50a")
+		)
+		(pin "2"
+			(uuid "f8435928-e9fa-42bb-b5e1-bca83473bfd1")
+		)
+		(pin "3"
+			(uuid "f52ba6c8-b23a-45b6-a19e-5c7464d827f7")
+		)
+		(pin "19"
+			(uuid "0217e405-b9a6-4c94-97b1-cce859f8555f")
+		)
+		(pin "7"
+			(uuid "b91db904-848b-492b-9bbb-568dd2787a24")
+		)
+		(pin "8"
+			(uuid "6a694083-0e5a-4245-bfb6-18c6689a7943")
+		)
+		(pin "6"
+			(uuid "7ab91a3b-d2fe-49f0-9864-6dcfb9b96dc5")
+		)
+		(pin "20"
+			(uuid "b128dd17-1ec9-4c1e-bded-431a6d372a58")
+		)
+		(pin "15"
+			(uuid "b405c084-12ca-461f-9f4b-7a27590dffa8")
+		)
+		(pin "18"
+			(uuid "ac93e42c-0ae7-4c6f-9434-11700e15bb37")
+		)
+		(pin "16"
+			(uuid "0c91935a-2c10-4fc6-b6dd-964b6dfb34cb")
+		)
+		(pin "17"
+			(uuid "a6da892b-95d7-476a-b60b-1a8fdd992c2c")
+		)
+		(pin "1"
+			(uuid "cf0226ca-f2ec-400e-801d-bff33956a746")
+		)
+		(pin "4"
+			(uuid "d2c74800-5913-4b6a-a8bd-b6ab80355ca5")
+		)
+		(pin "14"
+			(uuid "8245b365-ec8e-4a82-85b4-84ca6de47a61")
+		)
+		(pin "9"
+			(uuid "43af7462-2e6e-48b3-9d9f-03192163c4b7")
+		)
+		(pin "10"
+			(uuid "119aa948-049b-4796-b7d6-b1bf589cb064")
+		)
+		(pin "11"
+			(uuid "00213107-de38-46d4-921f-ee22dac12118")
+		)
+		(pin "12"
+			(uuid "e2995ebb-a04f-4716-8c87-dc0bd4045690")
+		)
+		(pin "13"
+			(uuid "61d6d2ff-9fb2-4275-afff-ad88c0d92d8d")
+		)
+		(instances
+			(project "midi_pro_micro"
+				(path "/9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
+					(reference "SW6")
 					(unit 1)
 				)
 			)
