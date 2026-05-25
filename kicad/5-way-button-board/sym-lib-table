@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "5-way-buttons") (type "KiCad") (uri "${KIPRJMOD}/../lib/5-way-buttons.kicad_sym") (options "") (descr ""))
+)
