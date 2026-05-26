@@ -1,0 +1,332 @@
+(footprint "Encoder_BOARD-30x40"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Through hole straight socket strip, 1x04, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
+	(tags "Through hole socket strip THT 1x04 2.54mm single row")
+	(property "Reference" "REF**"
+		(at -13 -6.58 0)
+		(layer "F.SilkS")
+		(uuid "dccef5fc-439d-45e0-a092-6b4ec1e03fb9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Encoder_BOARD-30x40"
+		(at -13 6.58 0)
+		(layer "F.Fab")
+		(uuid "23681418-d6bc-4bd2-b762-fe3e7d715eee")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c7054f05-89f9-4daa-a021-544f9617522f")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "cde73e26-857a-4be0-87f1-046be2ee7d25")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "KiLib_Generator" "connector/pin_header_socket"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "a0b7d1a4-9ccd-457b-8a1f-6109ebf65b82")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -14.33 -2.54)
+		(end -14.33 5.14)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ca513bf3-7738-47d2-a288-67783dac05b6")
+	)
+	(fp_line
+		(start -14.33 -2.54)
+		(end -11.67 -2.54)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4355134c-3713-4218-9926-50de397da24f")
+	)
+	(fp_line
+		(start -14.33 5.14)
+		(end -11.67 5.14)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "de1e3bde-0f87-4bc0-bac1-21bdf8ed8482")
+	)
+	(fp_line
+		(start -13 -5.14)
+		(end -11.67 -5.14)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a4559132-c44a-4e03-ac86-2215d655584a")
+	)
+	(fp_line
+		(start -11.67 -5.14)
+		(end -11.67 -3.81)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "78ea6c8b-6ba6-44ff-bb0c-7e5157aa4761")
+	)
+	(fp_line
+		(start -11.67 -2.54)
+		(end -11.67 5.14)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "2f032d81-82c8-4040-bdb1-485fa50218c2")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 16 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "e9bf7616-632c-49f8-a93e-1db99f31133d")
+	)
+	(fp_line
+		(start -14.77 -5.58)
+		(end -11.23 -5.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5606757a-f75f-44bd-ad82-7495f2eccc2c")
+	)
+	(fp_line
+		(start -14.77 5.58)
+		(end -14.77 -5.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b4301933-87dc-4c59-8954-d6d1ff985ba2")
+	)
+	(fp_line
+		(start -11.23 -5.58)
+		(end -11.23 5.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "02fe67b0-a215-4c8e-9613-a3432fb51439")
+	)
+	(fp_line
+		(start -11.23 5.58)
+		(end -14.77 5.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9b104aed-8f18-4404-a596-b2e93b25568c")
+	)
+	(fp_rect
+		(start -15 -20)
+		(end 15 20)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "5ba08b17-3b78-41da-9c52-93f61a6a39d0")
+	)
+	(fp_line
+		(start -14.27 -5.08)
+		(end -12.365 -5.08)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c33da37c-7e42-46e5-9c89-36b45368a810")
+	)
+	(fp_line
+		(start -14.27 5.08)
+		(end -14.27 -5.08)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b3c09387-9bf8-45a9-abc4-0897fc6a7bb7")
+	)
+	(fp_line
+		(start -12.365 -5.08)
+		(end -11.73 -4.445)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3ee8c8df-16ee-4360-b989-abe1a32d5a96")
+	)
+	(fp_line
+		(start -11.73 -4.445)
+		(end -11.73 5.08)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "72dc6aa3-540a-4b9a-b632-7e6c53e7f119")
+	)
+	(fp_line
+		(start -11.73 5.08)
+		(end -14.27 5.08)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "79f20beb-9663-4e14-a119-61c16ddfb227")
+	)
+	(fp_text user "${REFERENCE}"
+		(at -13 0 90)
+		(layer "F.Fab")
+		(uuid "fac44b57-0aed-4e9c-9c03-8c0355065300")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at -12 -17)
+		(size 3.2 3.2)
+		(drill 3.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "045ce3ee-937c-4a71-b0d6-28339957e44f")
+	)
+	(pad "" np_thru_hole circle
+		(at -12 17)
+		(size 3.2 3.2)
+		(drill 3.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "f76cae4b-2765-4925-91ef-b55eabb4c153")
+	)
+	(pad "" np_thru_hole circle
+		(at 12 -17)
+		(size 3.2 3.2)
+		(drill 3.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "d507bdaf-dc91-4886-aaaf-462017a325b2")
+	)
+	(pad "" np_thru_hole circle
+		(at 12 17)
+		(size 3.2 3.2)
+		(drill 3.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "1b75fe94-55cd-46f4-af41-caaa8808a07f")
+	)
+	(pad "1" thru_hole rect
+		(at -13 -3.81)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d6320763-ba93-469f-8432-2ac61b7e0398")
+	)
+	(pad "2" thru_hole circle
+		(at -13 -1.27)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "756e5930-6f95-421d-b000-01df1973bf22")
+	)
+	(pad "3" thru_hole circle
+		(at -13 1.27)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "41c5d509-e748-4fbf-9741-1ffff6b21ed1")
+	)
+	(pad "4" thru_hole circle
+		(at -13 3.81)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "452ce8b4-c3b7-46f5-9331-8943880be56e")
+	)
+	(embedded_fonts no)
+	(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step"
+		(offset
+			(xyz -13 3.81 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -0 -0 -0)
+		)
+	)
+	(model "${KIPRJMOD}/../lib/encoder-board.step"
+		(offset
+			(xyz 0 0 10)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -0 -0 -0)
+		)
+	)
+)

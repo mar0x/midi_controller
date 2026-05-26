@@ -472,7 +472,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "midi_pro_micro.kicad_pro",
+    "filename": "encoder-board.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -490,7 +490,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
@@ -589,7 +589,7 @@
       "include_excluded_from_bom": true,
       "name": "Default Editing",
       "sort_asc": true,
-      "sort_field": "Обозначение"
+      "sort_field": "Reference"
     },
     "bus_aliases": {},
     "connection_grid_size": 50.0,
@@ -627,9 +627,9 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "midi_pro_micro.kicad_sch",
-        "name": "Корневой лист",
-        "uuid": "9d1b4bd1-d946-4bbd-b302-260c54dfd9a5"
+        "filename": "encoder-board.kicad_sch",
+        "name": "encoder-board",
+        "uuid": "19fc2ed9-cc89-43b1-89e9-99474333cbdd"
       }
     ],
     "used_designators": "",
@@ -637,8 +637,8 @@
   },
   "sheets": [
     [
-      "9d1b4bd1-d946-4bbd-b302-260c54dfd9a5",
-      "Корневой лист"
+      "19fc2ed9-cc89-43b1-89e9-99474333cbdd",
+      "encoder-board"
     ]
   ],
   "text_variables": {},
