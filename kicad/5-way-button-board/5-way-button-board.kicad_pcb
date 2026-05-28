@@ -2598,6 +2598,31 @@
 		(layer "Edge.Cuts")
 		(uuid "4dc3e9d3-b230-4b51-882c-2bb98f103661")
 	)
+	(gr_text "github.com/mar0x/midi_controller"
+		(at 151.23 113.64 0)
+		(layer "B.SilkS")
+		(uuid "e66b2933-613e-403b-be56-4e2701df98f3")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "2026.05.29"
+		(at 139.24 112.2 0)
+		(layer "B.SilkS")
+		(uuid "7de59ac8-1665-4c0f-af2a-b7e2aa3e7677")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(segment
 		(start 159.25 86.5)
 		(end 155.75 86.5)
