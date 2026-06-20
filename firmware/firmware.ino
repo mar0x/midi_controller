@@ -2,27 +2,14 @@
 #include "spi.h"
 #include "display_1602.h"
 
-#include "artl/stimer.h"
-#include "artl/static_clock.h"
+#include "encoder.h"
+#include "keyboard.h"
+#include "stimer.h"
 #include "artl/yield.h"
 
 using namespace midi_controller;
 
-enum {
-    STIMER_NONE,
-    STIMER_CLOCK,
-    STIMER_DEBOUNCE_OK,
-    STIMER_DEBOUNCE_UP,
-    STIMER_DEBOUNCE_DOWN,
-    STIMER_MAX,
-};
-
 const uint16_t CLOCK_PERIOD = 1000;
-
-using clk_t = artl::clock_traits<uint16_t>;
-using stimer_t = artl::stimer<STIMER_MAX, STIMER_NONE, clk_t>;
-
-stimer_t stimer;
 
 enum {
     MODE_INIT,
@@ -75,18 +62,18 @@ void default_mode_enter(mode_desc_t *mode) {
     }
 }
 
-void default_mode_leave(mode_desc_t *mode) {
+void default_mode_leave(mode_desc_t * /* mode */) {
 }
 
-void default_mode_onkey(mode_desc_t *mode, uint8_t key) {
+void default_mode_onkey(mode_desc_t * /* mode */, uint8_t /* key */) {
 }
 
 display_text_t init_text[] = {
-    { 0, 0, "Mode INIT" }, { 0 },
+    { 0, 0, "Mode INIT" }, { 0, 0, nullptr },
 };
 
 display_text_t normal_text[] = {
-    { 0, 0, "Mode NORMAL" }, { 0 },
+    { 0, 0, "Mode NORMAL" }, { 0, 0, nullptr },
 };
 
 mode_desc_t mode[] = {
@@ -94,17 +81,15 @@ mode_desc_t mode[] = {
     { MODE_NORMAL, normal_text , default_mode_enter },
 };
 
-struct debounce_delay_traits {
-    static void schedule(uint8_t id, bool, stimer_t::callback_t cb) {
-        stimer.schedule_in(id, 5, cb);
-    }
+namespace midi_controller {
 
-    static void cancel(uint8_t id) {
-        stimer.cancel(id);
-    }
-};
+void encoder::on_rotate(int8_t d) {
+}
+
+}
 
 void update_clock() {
+/*
     if (Serial.dtr()) {
         Serial.print(millis());
         Serial.print(" left ");
@@ -122,28 +107,14 @@ void update_clock() {
         Serial.print(", ok ");
         Serial.println(ok_btn_pin::read());
     }
+*/
 }
 
 void setup() {
-    stimer.setup();
+    stimer::setup();
 
-    right_btn_pin::setup();
-    // right_btn_pin::pullup();
-
-    ok_btn_pin::setup();
-    // ok_btn_pin::pullup();
-
-    up_btn_pin::setup();
-    // up_btn_pin::pullup();
-
-    left_btn_pin::setup();
-    // left_btn_pin::pullup();
-
-    down_btn_pin::setup();
-    // down_btn_pin::pullup();
-
-    enc_a_pin::setup();
-    enc_b_pin::setup();
+    keyboard::setup();
+    encoder::setup();
 
     ok_led_pin::setup();
     up_led_pin::setup();
@@ -162,7 +133,7 @@ void setup() {
     display_1602::home();
     display_1602::write_pgm(PSTR("Hello PSTR"));
 
-    stimer.schedule_in(STIMER_CLOCK, 0, CLOCK_PERIOD, update_clock);
+    stimer::schedule_in(STIMER_CLOCK, 0, CLOCK_PERIOD, update_clock);
 
     Serial.begin(115200);
 }
@@ -170,17 +141,15 @@ void setup() {
 void loop() {
     clk_t::clock_source::update();
 
-    stimer.update();
+    stimer::update();
 
-    ok_led_pin::write(!ok_btn_pin::read());
+    keyboard::update();
+    encoder::update();
+
+    // ok_led_pin::write(!ok_btn_pin::read());
     up_led_pin::write(!up_btn_pin::read());
     down_led_pin::write(!down_btn_pin::read());
     left_led_pin::write(!left_btn_pin::read());
 
     artl::yield();
 }
-
-#if defined(ISR) && defined(PCINT0_vect)
-ISR(PCINT0_vect) {
-}
-#endif

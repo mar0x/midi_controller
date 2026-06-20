@@ -8,8 +8,8 @@ BUILD = build
 firmware:
 	arduino-cli -v compile -b $(FQBN) $(F) --build-path $(BUILD) \
     --build-property "compiler.c.elf.extra_flags=-g" \
-    --build-property 'build.usb_manufacturer="Romashka"' \
-    --build-property 'build.usb_product="FlightControl"' \
+    --build-property 'build.usb_manufacturer="MVR-Electronic.ru"' \
+    --build-property 'build.usb_product="MIDI Controller"' \
     --libraries ~/.arduino15/libraries \
     --libraries ~/Library/Arduino15/libraries \
     --warnings all .

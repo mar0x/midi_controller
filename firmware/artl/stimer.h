@@ -7,7 +7,7 @@ namespace artl {
 
 template<uint8_t N, uint8_t NONE, typename CLOCK>
 struct stimer {
-    using callback_t = void (*)(uint8_t id);
+    using callback_t = void (*)();
     using clock = CLOCK;
     using clock_type = typename CLOCK::value_type;
 
@@ -31,7 +31,7 @@ struct stimer {
             if (list[i].callback == nullptr) {
                 return i;
             }
-            list[i].callback(i);
+            list[i].callback();
             i = list[NONE].next;
         }
 
