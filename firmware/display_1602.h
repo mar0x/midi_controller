@@ -5,7 +5,7 @@
 namespace midi_controller {
 
 struct display_1602 {
-    static void begin();
+    static void setup();
 
     static void clear();
     static void home();

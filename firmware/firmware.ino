@@ -1,6 +1,7 @@
 #include "pinout.h"
 #include "spi.h"
 #include "display_1602.h"
+#include "screen_buf.h"
 
 #include "encoder.h"
 #include "keyboard.h"
@@ -36,11 +37,22 @@ enum {
     MODE_MAX,
 };
 
+using screen = screen_buf_t<display_1602>;
+
 struct display_text_t {
     uint8_t row:4;
     uint8_t col:4;
     const char *str;
 };
+
+uint8_t write_text(const display_text_t &t) {
+    if (t.str) {
+        screen::set_cursor(t.col, t.row);
+        return screen::write(t.str);
+    }
+
+    return 0;
+}
 
 struct mode_desc_t;
 
@@ -52,12 +64,12 @@ struct mode_desc_t {
     void (*onkey)(mode_desc_t *mode, uint8_t key);
 };
 
-void default_mode_enter(mode_desc_t *mode) {
+void default_mode_enter(struct mode_desc_t *mode) {
     const display_text_t *t = mode->text;
 
     while (t && t->str) {
-        display_1602::set_cursor(t->row, t->col);
-        display_1602::write(t->str);
+        screen::set_cursor(t->row, t->col);
+        screen::write(t->str);
         ++t;
     }
 }
@@ -68,22 +80,49 @@ void default_mode_leave(mode_desc_t * /* mode */) {
 void default_mode_onkey(mode_desc_t * /* mode */, uint8_t /* key */) {
 }
 
-display_text_t init_text[] = {
-    { 0, 0, "Mode INIT" }, { 0, 0, nullptr },
-};
-
-display_text_t normal_text[] = {
-    { 0, 0, "Mode NORMAL" }, { 0, 0, nullptr },
-};
+const display_text_t DT_END = { 0, 0, nullptr };
+const display_text_t init_text[] = { { 0, 0, "Mode INIT" }, DT_END };
+const display_text_t normal_text[] = { { 0, 0, "Mode NORMAL" }, DT_END };
 
 mode_desc_t mode[] = {
     { MODE_INIT,   init_text,  default_mode_enter },
     { MODE_NORMAL, normal_text , default_mode_enter },
 };
 
+uint8_t mode_;
+
+void set_mode(uint8_t m) {
+    if (m == mode_) {
+        return;
+    }
+
+    if (m > MODE_NORMAL) {
+        return;
+    }
+
+    if (mode[mode_].leave) {
+        mode[mode_].leave(mode + mode_);
+    }
+
+    if (mode[m].enter) {
+        mode[m].enter(mode + m);
+    }
+
+    mode_ = m;
+}
+
 namespace midi_controller {
 
 void encoder::on_rotate(int8_t d) {
+}
+
+void keyboard::on_up_press() {
+    uint8_t m = (mode_ + 1) % 2;
+
+    if (Serial.dtr()) {
+        Serial.println("up");
+    }
+    set_mode(m);
 }
 
 }
@@ -124,14 +163,19 @@ void setup() {
     eeprom_cs::setup();
     eeprom_cs::inactive();
 
-    oled_cs::setup();
-    oled_cs::inactive();
-
     spi::init();
 
-    display_1602::begin();
-    display_1602::home();
-    display_1602::write_pgm(PSTR("Hello PSTR"));
+    screen::setup();
+
+
+    //display_1602::begin();
+    //display_1602::clear();
+    //display_1602::write_pgm(PSTR("Hello PSTR"));
+
+    screen::write_pgm(PSTR("Hello buf PSTR"));
+    screen::set_cursor(0, 1);
+    screen::write("Hello buf STR");
+    display_1602::cursor(true);
 
     stimer::schedule_in(STIMER_CLOCK, 0, CLOCK_PERIOD, update_clock);
 

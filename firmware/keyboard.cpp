@@ -88,7 +88,7 @@ void ok_btn_cb::rise() { }
 void ok_btn_cb::fall() { }
 
 void up_btn_cb::rise() { }
-void up_btn_cb::fall() { }
+void up_btn_cb::fall() { keyboard::on_up_press(); }
 
 void down_btn_cb::rise() { }
 void down_btn_cb::fall() { }

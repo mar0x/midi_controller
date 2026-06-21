@@ -6,9 +6,16 @@
 
 namespace {
 
+using midi_controller::oled_cs;
+
 struct transfer_scope {
-    transfer_scope() { midi_controller::oled_cs::active(); }
-    ~transfer_scope() { midi_controller::oled_cs::inactive(); }
+    transfer_scope() { oled_cs::active(); }
+    ~transfer_scope() { oled_cs::inactive(); }
+
+    static void setup() {
+        oled_cs::setup();
+        oled_cs::inactive();
+    }
 };
 
 uint8_t control_;
@@ -28,7 +35,9 @@ uint8_t bit_set(uint8_t &v, uint8_t mask, bool enable) {
 
 namespace midi_controller {
 
-void display_1602::begin() {
+void display_1602::setup() {
+    transfer_scope::setup();
+
     // finally, set # lines, font size, etc.
     command(LCD_FUNCTIONSET | LCD_2LINE | LCD_8BITMODE);
 
@@ -38,19 +47,17 @@ void display_1602::begin() {
     control_ = LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
     command(control_);
 
-    // clear it off
-    clear();
-
     // Initialize to default text direction (for romance languages)
     mode_ = LCD_ENTRYMODESET | LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
-    // set the entry mode
-    command(mode_);
 
-    delay(100);
+    // clear it off
+    clear();
 }
 
 void display_1602::clear() {
     command(LCD_CLEARDISPLAY);  // clear display, set cursor position to zero
+    command(mode_);
+    delay(100);
 }
 
 void display_1602::home() {
