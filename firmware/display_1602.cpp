@@ -4,6 +4,8 @@
 #include "spi.h"
 #include "pinout.h"
 
+#include <avr/pgmspace.h>
+
 namespace {
 
 using midi_controller::oled_cs;

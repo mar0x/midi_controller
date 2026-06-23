@@ -1,7 +1,7 @@
 #pragma once
 
-#include "debug.h"
-#include "config.h"
+#include <stdint.h>
+#include <string.h>
 
 namespace midi_controller {
 
@@ -21,14 +21,14 @@ public:
 
     char title[TITLE_SIZE] =
         { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+    uint8_t type = 0;
+    uint8_t data[19];
 };
 
 inline void
 program_t::reset() {
-    for (uint8_t i = 0; i < TITLE_SIZE; ++i) {
-        title[i] = ' ';
-    }
-    loop.reset();
+    memcet(title, ' ', TITLE_SIZE);
+    type = 0;
 }
 
 inline bool
