@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Editable Table</title>
+  <!-- Bootstrap 5 CSS CDN -->
+  <!-- link href="https://jsdelivr.net" rel="stylesheet" -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body class="bg-light py-5">
+
+  <div class="container bg-white p-4 rounded shadow">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="h4 m-0">User Directory</h2>
+      <button class="btn btn-primary" id="addRowBtn">Add New Row</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle" id="editableTable">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th class="text-center" style="width: 180px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-field="name">John Doe</td>
+            <td data-field="email">john@example.com</td>
+            <td data-field="role">Admin</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-secondary edit-btn">Edit</button>
+              <button class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td data-field="name">Jane Smith</td>
+            <td data-field="email">jane@example.com</td>
+            <td data-field="role">Editor</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-secondary edit-btn">Edit</button>
+              <button class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tableBody = document.querySelector('#editableTable tbody');
+      const addRowBtn = document.getElementById('addRowBtn');
+
+      // Click event delegator for Edit, Save, and Delete operations
+      tableBody.addEventListener('click', (e) => {
+        const target = e.target;
+        const row = target.closest('tr');
+
+        if (target.classList.contains('edit-btn')) {
+          toggleRowEdit(row, true);
+        } else if (target.classList.contains('save-btn')) {
+          toggleRowEdit(row, false);
+        } else if (target.classList.contains('delete-btn')) {
+          row.remove();
+        }
+      });
+
+      // Append new blank row structure to table
+      addRowBtn.addEventListener('click', () => {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td data-field="name"></td>
+          <td data-field="email"></td>
+          <td data-field="role"></td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-secondary edit-btn">Edit</button>
+            <button class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(newRow);
+        toggleRowEdit(newRow, true); // Instantly enter edit mode
+      });
+
+      // Toggles a row between "view mode" and "edit form mode"
+      function toggleRowEdit(row, isEditing) {
+        const editableCells = row.querySelectorAll('td[data-field]');
+        const actionCell = row.cells[row.cells.length - 1];
+
+        if (isEditing) {
+          // Convert table cells into active text fields
+          editableCells.forEach(cell => {
+            const currentText = cell.innerText.trim();
+            cell.innerHTML = `<input type="text" class="form-control form-control-sm" value="${currentText}">`;
+          });
+
+          // Focus on first input element automatically
+          const firstInput = editableCells[0].querySelector('input');
+          if (firstInput) firstInput.focus();
+
+          // Swap edit button to success-themed save button
+          actionCell.querySelector('.edit-btn').className = 'btn btn-sm btn-success save-btn';
+          actionCell.querySelector('.save-btn').innerText = 'Save';
+        } else {
+          // Lock updated inputs back to string text
+          editableCells.forEach(cell => {
+            const inputVal = cell.querySelector('input').value.trim();
+            cell.innerText = inputVal;
+          });
+
+          // Revert save button back to primary action look
+          actionCell.querySelector('.save-btn').className = 'btn btn-sm btn-outline-secondary edit-btn';
+          actionCell.querySelector('.edit-btn').innerText = 'Edit';
+          
+          // Data is clean here. Hook up an AJAX/Fetch API post call here to update databases
+          const rowData = getRowData(row);
+          console.log('Row updated successfully:', rowData);
+        }
+      }
+
+      // Maps cell data properties to object properties
+      function getRowData(row) {
+        const data = {};
+        row.querySelectorAll('td[data-field]').forEach(cell => {
+          data[cell.dataset.field] = cell.innerText;
+        });
+        return data;
+      }
+    });
+  </script>
+</body>
+</html>
+

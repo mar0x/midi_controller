@@ -1,0 +1,13 @@
+
+Browser COM access
+https://github.com/amperka/serial-projecto://github.com/amperka/serial-projector
+https://projector.amperka.ru/
+
+single-page web application
+https://habr.com/ru/articles/200720/
+
+Bootstrap
+https://getbootstrap.com/docs/5.0/forms/floating-labels/
+
+Editable table
+https://diyifang.medium.com/bootstable-js-editable-table-with-bootstrap-6694f016f1b8
