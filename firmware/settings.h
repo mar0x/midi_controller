@@ -5,10 +5,9 @@
 namespace midi_controller {
 
 struct settings_v0_t {
+    uint8_t size = sizeof(settings_v0_t);
     uint8_t version = 0;
     uint8_t midi_channel = 0;
-    uint8_t midi_loop_ctrl_in[10] = { 128, 128, 128, 128, 128, 128, 128, 128, 128, 128 };
-    uint8_t midi_loop_ctrl_out[10] = { 128, 128, 128, 128, 128, 128, 128, 128, 128, 128 };
     uint8_t midi_out_prog = 0;
     uint8_t midi_fwd = 0;
     uint8_t usb_debug = 0;
@@ -17,7 +16,6 @@ struct settings_v0_t {
     uint8_t prog_start = 1;
     uint8_t chan_start = 1;
     uint8_t echo = 0;
-    uint8_t not_used_yet[1] = {0, 0};
 };
 
 using settings_t = settings_v0_t;

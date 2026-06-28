@@ -81,6 +81,7 @@ struct midi_cmd_t {
 
     operator const uint8_t*() const { return cmd_; }
     operator uint8_t*() { return cmd_; }
+    const uint8_t * operator &() const { return cmd_; }
 
     bool operator==(const midi_cmd_t& cmd) const;
 

@@ -37,47 +37,49 @@ FR <V>
 
 namespace midi_controller {
 
+enum {
+    SCMD_UNKNOWN,
+    SCMD_PROG_CHANGE,        // PC p
+    SCMD_CTRL_CHANGE,        // CC c v
+    SCMD_LOOP,               // LP l v
+    SCMD_NAME,               // NM n
+    SCMD_MODE,               // MD m
+    SCMD_STORE,              // ST
+    SCMD_RESTORE,            // RS
+    SCMD_MUTE,               // MT m
+    SCMD_PROGRAM,            // PR p t n
+    SCMD_MIDI_CHANNEL,       // MC c
+    SCMD_MIDI_LOOP_IN_CTRL,  // MLI l c
+    SCMD_MIDI_LOOP_OUT_CTRL, // MLO l c
+    SCMD_MIDI_PROG_OUT,      // MO o
+    SCMD_MIDI_FORWARD,       // MF f
+    SCMD_DEBUG_LEVEL,        // DL l
+    SCMD_MUTE_DELAY,         // ML s
+    SCMD_HIDE_CURSOR_DELAY,  // HC s
+    SCMD_VERSION,            // V
+    SCMD_ECHO,               // E e
+    SCMD_FACTORY_RESET,      // FR v
+    SCMD_MIDI_MON_IN,        // MMI
+    SCMD_MIDI_MON_OUT,       // MMO
+    SCMD_MIDI_DUMP_SEND,     // MDS
+    SCMD_MIDI_DUMP_RECV,     // MDR
+    SCMD_HELP,               // ?
+
+    SCMD_BTN_PRESS,          // B b
+    SCMD_DISPLAY_DUMP,       // D
+
+    SCMD_SERIAL_NUMBER,      // SN
+    SCMD_HARDWARE,           // HW
+};
+
 struct serial_cmd_t {
 
     enum {
-        CMD_UNKNOWN,
-        CMD_PROG_CHANGE,        // PC p
-        CMD_CTRL_CHANGE,        // CC c v
-        CMD_LOOP,               // LP l v
-        CMD_NAME,               // NM n
-        CMD_MODE,               // MD m
-        CMD_STORE,              // ST
-        CMD_RESTORE,            // RS
-        CMD_MUTE,               // MT m
-        CMD_PROGRAM,            // PR p t n
-        CMD_MIDI_CHANNEL,       // MC c
-        CMD_MIDI_LOOP_IN_CTRL,  // MLI l c
-        CMD_MIDI_LOOP_OUT_CTRL, // MLO l c
-        CMD_MIDI_PROG_OUT,      // MO o
-        CMD_MIDI_FORWARD,       // MF f
-        CMD_DEBUG_LEVEL,        // DL l
-        CMD_MUTE_DELAY,         // ML s
-        CMD_HIDE_CURSOR_DELAY,  // HC s
-        CMD_VERSION,            // V
-        CMD_ECHO,               // E e
-        CMD_FACTORY_RESET,      // FR v
-        CMD_MIDI_MON_IN,        // MMI
-        CMD_MIDI_MON_OUT,       // MMO
-        CMD_MIDI_DUMP_SEND,     // MDS
-        CMD_MIDI_DUMP_RECV,     // MDR
-        CMD_HELP,               // ?
-
-        CMD_BTN_PRESS,          // B b
-        CMD_DISPLAY_DUMP,       // D
-
-        CMD_SERIAL_NUMBER,      // SN
-        CMD_HARDWARE,           // HW
-
         MAX_SIZE = 50,
         MAX_ARGS = 5,
     };
 
-    serial_cmd_t() : ready_(false), size_(0), command_(CMD_UNKNOWN) { }
+    serial_cmd_t() : ready_(false), size_(0), command_(SCMD_UNKNOWN) { }
 
     void read(uint8_t b);
 
@@ -86,7 +88,7 @@ struct serial_cmd_t {
     void reset() {
         ready_ = false;
         size_ = 0;
-        command_ = CMD_UNKNOWN;
+        command_ = SCMD_UNKNOWN;
     }
 
     uint8_t command() const { return command_; }
@@ -120,6 +122,8 @@ struct serial_cmd_t {
     struct arg {
         uint8_t start;
         uint8_t end;
+
+        uint8_t size() const { return end - start; }
     };
 
     char buf_[MAX_SIZE];

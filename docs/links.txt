@@ -1,6 +1,6 @@
 
 Browser COM access
-https://github.com/amperka/serial-projecto://github.com/amperka/serial-projector
+https://github.com/amperka/serial-projector
 https://projector.amperka.ru/
 
 single-page web application

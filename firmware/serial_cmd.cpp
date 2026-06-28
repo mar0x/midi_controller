@@ -93,40 +93,40 @@ serial_cmd_t::parse() {
 
         switch (a->end - a->start) {
         case 1:
-            if (b[0] == 'V') { command_ = CMD_VERSION; }
-            if (b[0] == 'E') { command_ = CMD_ECHO; }
-            if (b[0] == 'B') { command_ = CMD_BTN_PRESS; }
-            if (b[0] == 'D') { command_ = CMD_DISPLAY_DUMP; }
-            if (b[0] == '?') { command_ = CMD_HELP; }
+            if (b[0] == 'V') { command_ = SCMD_VERSION; }
+            if (b[0] == 'E') { command_ = SCMD_ECHO; }
+            if (b[0] == 'B') { command_ = SCMD_BTN_PRESS; }
+            if (b[0] == 'D') { command_ = SCMD_DISPLAY_DUMP; }
+            if (b[0] == '?') { command_ = SCMD_HELP; }
             break;
 
         case 2:
-            if (b[0] == 'P' && b[1] == 'C') { command_ = CMD_PROG_CHANGE; }
-            if (b[0] == 'C' && b[1] == 'C') { command_ = CMD_CTRL_CHANGE; }
-            if (b[0] == 'L' && b[1] == 'P') { command_ = CMD_LOOP; }
-            if (b[0] == 'N' && b[1] == 'M') { command_ = CMD_NAME; }
-            if (b[0] == 'M' && b[1] == 'D') { command_ = CMD_MODE; }
-            if (b[0] == 'S' && b[1] == 'T') { command_ = CMD_STORE; }
-            if (b[0] == 'R' && b[1] == 'S') { command_ = CMD_RESTORE; }
-            if (b[0] == 'P' && b[1] == 'R') { command_ = CMD_PROGRAM; }
-            if (b[0] == 'M' && b[1] == 'C') { command_ = CMD_MIDI_CHANNEL; }
-            if (b[0] == 'M' && b[1] == 'O') { command_ = CMD_MIDI_PROG_OUT; }
-            if (b[0] == 'M' && b[1] == 'F') { command_ = CMD_MIDI_FORWARD; }
-            if (b[0] == 'D' && b[1] == 'L') { command_ = CMD_DEBUG_LEVEL; }
-            if (b[0] == 'M' && b[1] == 'L') { command_ = CMD_MUTE_DELAY; }
-            if (b[0] == 'H' && b[1] == 'C') { command_ = CMD_HIDE_CURSOR_DELAY; }
-            if (b[0] == 'F' && b[1] == 'R') { command_ = CMD_FACTORY_RESET; }
-            if (b[0] == 'S' && b[1] == 'N') { command_ = CMD_SERIAL_NUMBER; }
-            if (b[0] == 'H' && b[1] == 'W') { command_ = CMD_HARDWARE; }
+            if (b[0] == 'P' && b[1] == 'C') { command_ = SCMD_PROG_CHANGE; }
+            if (b[0] == 'C' && b[1] == 'C') { command_ = SCMD_CTRL_CHANGE; }
+            if (b[0] == 'L' && b[1] == 'P') { command_ = SCMD_LOOP; }
+            if (b[0] == 'N' && b[1] == 'M') { command_ = SCMD_NAME; }
+            if (b[0] == 'M' && b[1] == 'D') { command_ = SCMD_MODE; }
+            if (b[0] == 'S' && b[1] == 'T') { command_ = SCMD_STORE; }
+            if (b[0] == 'R' && b[1] == 'S') { command_ = SCMD_RESTORE; }
+            if (b[0] == 'P' && b[1] == 'R') { command_ = SCMD_PROGRAM; }
+            if (b[0] == 'M' && b[1] == 'C') { command_ = SCMD_MIDI_CHANNEL; }
+            if (b[0] == 'M' && b[1] == 'O') { command_ = SCMD_MIDI_PROG_OUT; }
+            if (b[0] == 'M' && b[1] == 'F') { command_ = SCMD_MIDI_FORWARD; }
+            if (b[0] == 'D' && b[1] == 'L') { command_ = SCMD_DEBUG_LEVEL; }
+            if (b[0] == 'M' && b[1] == 'L') { command_ = SCMD_MUTE_DELAY; }
+            if (b[0] == 'H' && b[1] == 'C') { command_ = SCMD_HIDE_CURSOR_DELAY; }
+            if (b[0] == 'F' && b[1] == 'R') { command_ = SCMD_FACTORY_RESET; }
+            if (b[0] == 'S' && b[1] == 'N') { command_ = SCMD_SERIAL_NUMBER; }
+            if (b[0] == 'H' && b[1] == 'W') { command_ = SCMD_HARDWARE; }
             break;
 
         case 3:
-            if (b[0] == 'M' && b[1] == 'L' && b[2] == 'I') { command_ = CMD_MIDI_LOOP_IN_CTRL; }
-            if (b[0] == 'M' && b[1] == 'L' && b[2] == 'O') { command_ = CMD_MIDI_LOOP_OUT_CTRL; }
-            if (b[0] == 'M' && b[1] == 'M' && b[2] == 'I') { command_ = CMD_MIDI_MON_IN; }
-            if (b[0] == 'M' && b[1] == 'M' && b[2] == 'O') { command_ = CMD_MIDI_MON_OUT; }
-            if (b[0] == 'M' && b[1] == 'D' && b[2] == 'S') { command_ = CMD_MIDI_DUMP_SEND; }
-            if (b[0] == 'M' && b[1] == 'D' && b[2] == 'R') { command_ = CMD_MIDI_DUMP_RECV; }
+            if (b[0] == 'M' && b[1] == 'L' && b[2] == 'I') { command_ = SCMD_MIDI_LOOP_IN_CTRL; }
+            if (b[0] == 'M' && b[1] == 'L' && b[2] == 'O') { command_ = SCMD_MIDI_LOOP_OUT_CTRL; }
+            if (b[0] == 'M' && b[1] == 'M' && b[2] == 'I') { command_ = SCMD_MIDI_MON_IN; }
+            if (b[0] == 'M' && b[1] == 'M' && b[2] == 'O') { command_ = SCMD_MIDI_MON_OUT; }
+            if (b[0] == 'M' && b[1] == 'D' && b[2] == 'S') { command_ = SCMD_MIDI_DUMP_SEND; }
+            if (b[0] == 'M' && b[1] == 'D' && b[2] == 'R') { command_ = SCMD_MIDI_DUMP_RECV; }
             break;
         }
     }

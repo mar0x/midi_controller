@@ -31,6 +31,8 @@ struct screen_buf_t {
     static uint8_t write(const char *c);
     static uint8_t write_pgm(const char *c, uint8_t size);
     static uint8_t write_pgm(const char *d);
+
+    static void print_num(uint8_t size, uint16_t n, char lead=' ');
 };
 
 }
@@ -144,6 +146,28 @@ uint8_t screen_buf_t<DISP, LINES, COLUMNS>::write_pgm(const char *c) {
     }
 
     return display_type::write(buf + pos - size, size);
+}
+
+template<typename DISP, uint8_t LINES, uint8_t COLUMNS>
+void screen_buf_t<DISP, LINES, COLUMNS>::print_num(uint8_t size, uint16_t n, char lead) {
+    if (size > sizeof(buf) - pos) {
+        size = sizeof(buf) - pos;
+    }
+
+    char *start = buf + pos;
+    char *p = start + size;
+
+    do {
+        char c = n % 10;
+        n /= 10;
+
+        *--p = c + '0';
+    } while (n && p >= start);
+
+    while (p > start) { *--p = lead; }
+    pos += size;
+
+    display_type::write(start, size);
 }
 
 }
