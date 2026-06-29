@@ -84,7 +84,9 @@ p {
 }
 
 code,
-.counter {
+.counter,
+.connect,
+.disconnect {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
@@ -98,7 +100,9 @@ code {
   background: var(--code-bg);
 }
 
-.counter {
+.counter,
+.connect,
+.disconnect {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
