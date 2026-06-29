@@ -1,3 +1,5 @@
+import { addProgram } from './progtable.ts'
+
 let port: SerialPort | undefined;
 
 declare global {
@@ -8,6 +10,42 @@ declare global {
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
+const prog_re = /PR (\d+) "([^"]*)"/;
+
+async function readLoop() {
+    let s = ``;
+    while (port && port.readable) {
+        const reader = port.readable.getReader();
+        const res = await reader.read();
+        s += decoder.decode(res.value);
+        let nl_pos = s.indexOf('\n');
+        while (nl_pos >= 0) {
+            const pr = s.substring(0, nl_pos);
+            console.log('read: ' + pr);
+            let m = pr.match(prog_re);
+            if (m) {
+                addProgram(Number(m[1]), m[2])
+            }
+            s = s.substring(nl_pos + 1);
+            nl_pos = s.indexOf('\n');
+        }
+        reader.releaseLock();
+    }
+}
+
+async function writeLoop() {
+    for (let i = 0; i < 100; i++) {
+        if (port && port.writable) {
+            const writer = port.writable.getWriter();
+            let s = 'PR ' + String(i) + '\n';
+            console.log('write: ' + s);
+            writer.write( encoder.encode(s) );
+            writer.releaseLock();
+        } else {
+            break;
+        }
+    }
+}
 
 export function setupConnect(element: HTMLButtonElement) {
   const doConnect = async () => {
@@ -19,18 +57,8 @@ export function setupConnect(element: HTMLButtonElement) {
         element.className = `disconnect`
         element.port = port;
 
-        if (port.writable) {
-            const writer = port.writable.getWriter();
-            writer.write( encoder.encode('PR\n') );
-            writer.releaseLock();
-        }
-
-        if (port.readable) {
-            const reader = port.readable.getReader();
-            const res = await reader.read();
-            console.log(decoder.decode(res.value));
-            reader.releaseLock();
-        }
+        await Promise.all([readLoop(), writeLoop()]);
+        console.log("All operations completed.");
     } else {
         await port.close();
         port = undefined;
