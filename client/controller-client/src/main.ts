@@ -6,6 +6,7 @@ import heroImg from './assets/hero.png'
 import { setupCounter } from './counter.ts'
 import { setupConnect } from './connect.ts'
 import { onDownloadClick, onUploadFileChange } from './progtable.ts'
+import { setupLcd } from './vrEmuLcd.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="center">
@@ -18,6 +19,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <h1>Get started</h1>
     <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
   </div>
+  <canvas id="lcdCanvas" width="400" height="200"></canvas>
   <button id="counter" type="button" class="counter"></button>
   <button id="connect" type="button" class="connect"></button>
 </section>
@@ -86,3 +88,5 @@ downloadLink?.addEventListener('click', onDownloadClick);
 
 const uploadFile = document.querySelector('#upload-file') as HTMLInputElement;
 uploadFile?.addEventListener('change', onUploadFileChange);
+
+setupLcd();

@@ -1,4 +1,4 @@
-import { addProgram } from './progtable.ts'
+import { updateProgram } from './progtable.ts'
 
 let port: SerialPort | undefined;
 
@@ -12,6 +12,16 @@ const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 const prog_re = /PR (\d+) "([^"]*)"/;
 
+export async function writeProgram(n: number, title: string) {
+    if (port && port.writable) {
+        const writer = port.writable.getWriter();
+        let s = 'PR ' + String(n) + ' "' + title + '"\n';
+        console.log('write: ' + s);
+        writer.write( encoder.encode(s) );
+        writer.releaseLock();
+    }
+}
+
 async function readLoop() {
     let s = ``;
     while (port && port.readable) {
@@ -24,7 +34,7 @@ async function readLoop() {
             console.log('read: ' + pr);
             let m = pr.match(prog_re);
             if (m) {
-                addProgram(Number(m[1]), m[2])
+                updateProgram(Number(m[1]), m[2])
             }
             s = s.substring(nl_pos + 1);
             nl_pos = s.indexOf('\n');

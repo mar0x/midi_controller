@@ -1,3 +1,12 @@
+import { writeProgram } from './connect.ts'
+
+type ProgramType = {
+  id: number;
+  title: string;
+  cell: HTMLTableCellElement;
+};
+
+const programs: Record<number, ProgramType> = { };
 
 declare global {
   interface HTMLInputElement {
@@ -8,7 +17,7 @@ declare global {
   }
 
   interface HTMLTableCellElement {
-    programId: number;
+    program: ProgramType;
   }
 }
 
@@ -28,11 +37,13 @@ HTMLInputElement.prototype.submit = function (this: HTMLInputElement) {
   const new_text = this.value;
   this.remove();
 
+  active_input = undefined;
+
   if (parent) {
     parent.textContent = new_text;
+    parent.program.title = new_text;
+    writeProgram(parent.program.id, new_text);
   }
-
-  active_input = undefined;
 }
 
 let active_input: HTMLInputElement | undefined;
@@ -80,7 +91,17 @@ function onCellClick(e: Event) {
   }
 }
 
-export function addProgram(n: number, title: string) {
+export function updateProgram(n: number, title: string) {
+  let p: ProgramType = programs[n];
+  if (p) {
+    p.title = title;
+    p.cell.textContent = title;
+
+    // TODO: update edit
+
+    return;
+  }
+
   // 1. Fetch the table element and cast it to HTMLTableElement
   const table = document.getElementById("program-table") as HTMLTableElement;
 
@@ -104,11 +125,14 @@ export function addProgram(n: number, title: string) {
         input.value = String(n);
       }
 
+      p = { id: n, title: title, cell: cell2 };
+      programs[n] = p;
+
       // 4. Assign text or HTML content to the cells
       cell0.appendChild(input);
       cell1.textContent = String(n);
       cell2.textContent = title;
-      cell2.programId = n;
+      cell2.program = p;
 
       cell2.addEventListener('click', onCellClick);
     }
