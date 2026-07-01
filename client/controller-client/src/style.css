@@ -186,6 +186,10 @@ code {
   }
 }
 
+#programs {
+  text-align: left;
+}
+
 #next-steps {
   display: flex;
   border-top: 1px solid var(--border);

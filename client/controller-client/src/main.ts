@@ -1,9 +1,11 @@
 import './style.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import typescriptLogo from './assets/typescript.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { setupCounter } from './counter.ts'
 import { setupConnect } from './connect.ts'
+import { onDownloadClick, onUploadFileChange } from './progtable.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="center">
@@ -23,9 +25,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <div class="ticks"></div>
 
 <section id="programs">
-  <table id="program-table" class="table">
+  <table id="program-table" class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">v</th>
         <th scope="col">#</th>
         <th scope="col">Title</th>
       </tr>
@@ -48,10 +51,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </a>
       </li>
       <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
+        <a href="https://www.typescriptlang.org" target="_blank" id="download-link">
           <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
+          Download
         </a>
+      </li>
+      <li>
+        <input type="file" id="upload-file" name="fileUpload">
       </li>
     </ul>
   </div>
@@ -74,3 +80,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 setupConnect(document.querySelector<HTMLButtonElement>('#connect')!)
+
+const downloadLink = document.querySelector('#download-link') as HTMLAnchorElement;
+downloadLink?.addEventListener('click', onDownloadClick);
+
+const uploadFile = document.querySelector('#upload-file') as HTMLInputElement;
+uploadFile?.addEventListener('change', onUploadFileChange);
