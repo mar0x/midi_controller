@@ -3,14 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import typescriptLogo from './assets/typescript.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.ts'
 import { setupConnect } from './connect.ts'
 import { onDownloadClick, onUploadFileChange } from './progtable.ts'
 import { setupLcd } from './vrEmuLcd.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="center">
-  <div class="hero">
+  <!-- div class="hero">
     <img src="${heroImg}" class="base" width="170" height="179">
     <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
     <img src="${viteLogo}" class="vite" alt="Vite logo" />
@@ -18,16 +17,36 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <h1>Get started</h1>
     <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
+  </div -->
+<div class="row">
+  <div class="col">
+    <button id="connect" type="button" class="connect"></button>
   </div>
-  <canvas id="lcdCanvas" width="400" height="200"></canvas>
-  <button id="counter" type="button" class="counter"></button>
-  <button id="connect" type="button" class="connect"></button>
+</div>
 </section>
+
+<div id="settings" class="row">
+  <div class="col">
+    <canvas id="lcdCanvas" width="400" height="100"></canvas>
+  </div>
+  <div class="col">
+    <table id="settings-table" class="table table-dark table-hover">
+      <tbody>
+        <tr><th>Profile</th><td>Mobius</td></tr>
+        <tr><th>Out Channel</th><td>1</td></tr>
+        <tr><th>In Channel</th><td>1</td></tr>
+        <tr><th>MIDI Forward</th><td><input type="checkbox" checked/></td></tr>
+        <tr><th>Channel Start</th><td>1</td></tr>
+        <tr><th>Program Start</th><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <div class="ticks"></div>
 
 <section id="programs">
-  <table id="program-table" class="table table-hover">
+  <table id="program-table" class="table table-dark table-hover">
     <thead>
       <tr>
         <th scope="col">v</th>
@@ -80,7 +99,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="spacer"></section>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 setupConnect(document.querySelector<HTMLButtonElement>('#connect')!)
 
 const downloadLink = document.querySelector('#download-link') as HTMLAnchorElement;

@@ -1,16 +1,23 @@
-import { writeProgram } from './connect.ts'
+import { writeProgram, selectProgram } from './connect.ts'
+import { Splitter } from './splitter.ts'
 
 type ProgramType = {
   id: number;
   title: string;
+  radio_btn: HTMLInputElement;
   cell: HTMLTableCellElement;
 };
 
+function programRow(p: ProgramType) {
+  return p.cell.parentElement as HTMLTableRowElement;
+}
+
 const programs: Record<number, ProgramType> = { };
+let cur_prog_id: number = 0;
 
 declare global {
   interface HTMLInputElement {
-    originalValue: string;
+    program: ProgramType;
 
     cancel(): void;
     submit(): void;
@@ -22,11 +29,13 @@ declare global {
 }
 
 HTMLInputElement.prototype.cancel = function (this: HTMLInputElement) {
+  console.log('cancel');
+
   const parent = this.parentElement as HTMLTableCellElement;
   this.remove();
 
   if (parent) {
-    parent.textContent = this.originalValue;
+    parent.textContent = this.program.title;
   }
 
   active_input = undefined;
@@ -61,11 +70,20 @@ function onInputKeydown(e: KeyboardEvent) {
 }
 
 function onCellClick(e: Event) {
-  const target = e.target as HTMLTableCellElement;
-  if (target) {
-    const text = target.textContent;
+  const cell = e.target as HTMLTableCellElement;
+  if (cell) {
+    const text = cell.textContent;
 
     if (active_input) {
+      if (active_input === cell as HTMLElement) {
+          return;
+      }
+
+      const active_cell = active_input.parentElement as HTMLTableCellElement;
+      if (active_cell === cell) {
+          return;
+      }
+
       active_input.cancel();
     }
 
@@ -76,13 +94,12 @@ function onCellClick(e: Event) {
       input.classList.add('form-control')
       input.classList.add('form-control-sm')
       input.value = text;
-      input.originalValue = text;
+      input.program = cell.program;
 
       input.addEventListener('keydown', onInputKeydown);
 
-      target.textContent = '';
-      target.classList.add('table-sm');
-      target.appendChild(input);
+      cell.textContent = '';
+      cell.appendChild(input);
 
       input.focus();
 
@@ -91,7 +108,16 @@ function onCellClick(e: Event) {
   }
 }
 
+function onRadioBtnClick(e: Event) {
+  const radio_btn = e.target as HTMLInputElement;
+
+  if (radio_btn) {
+    selectProgram(Number(radio_btn.value));
+  }
+}
+
 export function updateProgram(n: number, title: string) {
+  console.log('updateProgram: ' + String(n) + ' ' + title);
   let p: ProgramType = programs[n];
   if (p) {
     p.title = title;
@@ -118,18 +144,20 @@ export function updateProgram(n: number, title: string) {
       const cell1: HTMLTableCellElement = newRow.insertCell(1);
       const cell2: HTMLTableCellElement = newRow.insertCell(2);
 
-      const input = document.createElement('input') as HTMLInputElement;
-      if (input) {
-        input.type = 'radio';
-        input.name = 'program';
-        input.value = String(n);
+      const radio_btn = document.createElement('input') as HTMLInputElement;
+      if (radio_btn) {
+        radio_btn.type = 'radio';
+        radio_btn.name = 'program';
+        radio_btn.value = String(n);
       }
 
-      p = { id: n, title: title, cell: cell2 };
+      p = { id: n, title: title, radio_btn: radio_btn, cell: cell2 };
       programs[n] = p;
 
+      radio_btn.addEventListener('click', onRadioBtnClick);
+
       // 4. Assign text or HTML content to the cells
-      cell0.appendChild(input);
+      cell0.appendChild(radio_btn);
       cell1.textContent = String(n);
       cell2.textContent = title;
       cell2.program = p;
@@ -139,13 +167,34 @@ export function updateProgram(n: number, title: string) {
   }
 }
 
+export function changeProgram(n: number) {
+  const p: ProgramType = programs[n];
+  if (p) {
+    p.radio_btn.checked = true;
+
+    programRow(programs[cur_prog_id]).classList.remove("table-active");
+
+    // TODO: uncheck current
+    cur_prog_id = n;
+
+    programRow(programs[cur_prog_id]).classList.add("table-active");
+  }
+}
+
 export function onDownloadClick(e: MouseEvent) {
   const downloadLink = e.target as HTMLAnchorElement;
 
   if (downloadLink) {
-    const content: string = 'Test text content';
-    const contentType: string = 'text/plain;charset=utf-8;';
-    const filename: string = 'backup.txt';
+    const entries = Object.entries(programs) as [string, ProgramType][];
+    let content: string = '';
+
+    entries.forEach(([n, p]) => {
+      content += n + ";" + p.title + ";\n";
+    });
+
+    //const content: string = 'Test text content';
+    const contentType: string = 'text/csv;charset=utf-8;';
+    const filename: string = 'backup.csv';
 
     // 1. Create a Blob object from your data
     const blob: Blob = new Blob([content], { type: contentType });
@@ -167,6 +216,8 @@ export function onDownloadClick(e: MouseEvent) {
   }
 }
 
+const csv_line_re = /^\s*(\d+)\s*;([^;]*);?/
+
 async function processFileText(file: File): Promise<void> {
     try {
         // Reads raw content into a string variable
@@ -176,6 +227,15 @@ async function processFileText(file: File): Promise<void> {
         if (file.type === "application/json") {
             const parsedData: Record<string, unknown> = JSON.parse(textContent);
             console.log("Parsed JSON:", parsedData);
+        } else if (file.type === "text/csv") {
+            console.log("CSV Text:", textContent);
+            const lines = new Splitter(textContent);
+            while (lines.next()) {
+                const m = lines.line.match(csv_line_re);
+                if (m) {
+                    writeProgram(Number(m[1]), m[2]);
+                }
+            }
         } else {
             console.log("Plain Text:", textContent);
         }

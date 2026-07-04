@@ -1,4 +1,6 @@
-import { updateProgram } from './progtable.ts'
+import { updateProgram, changeProgram } from './progtable.ts'
+import { printLcd } from './vrEmuLcd.ts'
+import { Splitter } from './splitter.ts'
 
 let port: SerialPort | undefined;
 
@@ -10,7 +12,9 @@ declare global {
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
-const prog_re = /PR (\d+) "([^"]*)"/;
+const prog_re = /^PR (\d+) "([^"]*)"/;
+const display_re = /^D (.{16})(.{16})/;
+const prog_change_re = /^PC (\d+)/;
 
 export async function writeProgram(n: number, title: string) {
     if (port && port.writable) {
@@ -19,31 +23,61 @@ export async function writeProgram(n: number, title: string) {
         console.log('write: ' + s);
         writer.write( encoder.encode(s) );
         writer.releaseLock();
+    } else {
+        updateProgram(n, title);
+    }
+}
+
+export async function selectProgram(n: number) {
+    if (port && port.writable) {
+        const writer = port.writable.getWriter();
+        let s = 'PC ' + String(n) + '\n';
+        console.log('write: ' + s);
+        writer.write( encoder.encode(s) );
+        writer.releaseLock();
+    } else {
+        changeProgram(n);
     }
 }
 
 async function readLoop() {
-    let s = ``;
+    const lines = new Splitter();
+    lines.shift = true;
+
     while (port && port.readable) {
         const reader = port.readable.getReader();
         const res = await reader.read();
-        s += decoder.decode(res.value);
-        let nl_pos = s.indexOf('\n');
-        while (nl_pos >= 0) {
-            const pr = s.substring(0, nl_pos);
+
+        lines.add(decoder.decode(res.value));
+        while (lines.next()) {
+            const pr = lines.line;
             console.log('read: ' + pr);
             let m = pr.match(prog_re);
             if (m) {
                 updateProgram(Number(m[1]), m[2])
             }
-            s = s.substring(nl_pos + 1);
-            nl_pos = s.indexOf('\n');
+            m = pr.match(display_re);
+            if (m) {
+                printLcd(m[1], m[2]);
+            }
+            m = pr.match(prog_change_re);
+            if (m) {
+                changeProgram(Number(m[1]));
+            }
         }
         reader.releaseLock();
     }
 }
 
 async function writeLoop() {
+    if (port && port.writable) {
+        const writer = port.writable.getWriter();
+        let s = 'D 200\n';
+        console.log('write: ' + s);
+        writer.write( encoder.encode(s) );
+        writer.releaseLock();
+    }
+
     for (let i = 0; i < 100; i++) {
         if (port && port.writable) {
             const writer = port.writable.getWriter();
@@ -54,6 +88,14 @@ async function writeLoop() {
         } else {
             break;
         }
+    }
+
+    if (port && port.writable) {
+        const writer = port.writable.getWriter();
+        let s = 'PC\n';
+        console.log('write: ' + s);
+        writer.write( encoder.encode(s) );
+        writer.releaseLock();
     }
 }
 
