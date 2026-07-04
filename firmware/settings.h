@@ -7,7 +7,8 @@ namespace midi_controller {
 struct settings_v0_t {
     uint8_t size = sizeof(settings_v0_t);
     uint8_t version = 0;
-    uint8_t midi_channel = 0;
+    uint8_t midi_channel_in = 0;
+    uint8_t midi_channel_out = 0;
     uint8_t midi_out_prog = 0;
     uint8_t midi_fwd = 0;
     uint8_t usb_debug = 0;

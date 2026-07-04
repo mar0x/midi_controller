@@ -11,7 +11,10 @@ namespace {
 using midi_controller::oled_cs;
 
 struct transfer_scope {
-    transfer_scope() { oled_cs::active(); }
+    transfer_scope() {
+        midi_controller::display_1602::dirty = true;
+        oled_cs::active();
+    }
     ~transfer_scope() { oled_cs::inactive(); }
 
     static void setup() {
@@ -36,6 +39,8 @@ uint8_t bit_set(uint8_t &v, uint8_t mask, bool enable) {
 }
 
 namespace midi_controller {
+
+bool display_1602::dirty;
 
 void display_1602::setup() {
     transfer_scope::setup();

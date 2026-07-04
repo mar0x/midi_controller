@@ -33,6 +33,8 @@ struct display_1602 {
     static uint8_t write_pgm(const char *d);
 
     static void command(uint8_t cmd);
+
+    static bool dirty;
 };
 
 }

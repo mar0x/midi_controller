@@ -231,6 +231,11 @@ void set_program(uint16_t p, bool show_banner = false) {
 
     Serial1.write(&cmd0, cmd0.size());
     Serial1.write(&cmd1, cmd1.size());
+
+    if (Serial.dtr()) {
+        Serial.print("PC ");
+        Serial.println(p);
+    }
 }
 
 namespace midi_controller {
@@ -274,7 +279,17 @@ void update_clock() {
 */
 }
 
+void update_display() {
+    if (Serial.dtr() && display_1602::dirty) {
+        Serial.print("D ");
+        Serial.write(screen::buf, sizeof(screen::buf));
+        Serial.println("");
+        display_1602::dirty = false;
+    }
+}
+
 serial_cmd_t serial_cmd;
+bool serial_dtr;
 
 void setup() {
     stimer::setup();
@@ -302,6 +317,9 @@ void setup() {
     Serial1.begin(31250);
     Serial.begin(115200);
 
+    serial_dtr = Serial.dtr();
+    stimer::callback(STIMER_DISPLAY_UPDATE, update_display);
+
     set_program(0, true);
 }
 
@@ -313,6 +331,13 @@ void loop() {
     keyboard::update();
     encoder::update();
 
+    if (serial_dtr != Serial.dtr()) {
+        serial_dtr = Serial.dtr();
+        if (!serial_dtr) {
+            stimer::cancel(STIMER_DISPLAY_UPDATE);
+        }
+    }
+
     if (Serial.available()) {
         int c = Serial.read();
         serial_cmd.read(c);
@@ -322,6 +347,20 @@ void loop() {
         }
 
         if (serial_cmd) {
+            if (serial_cmd.command() == SCMD_PROG_CHANGE) {
+                uint16_t p = cur_prog_id_;
+
+                if (serial_cmd.get_arg(1, p)) {
+                    if (p >= MAX_PROGRAM) p = cur_prog_id_;
+
+                    set_program(p);
+                }
+
+                if (Serial.dtr()) {
+                    Serial.print("PC ");
+                    Serial.println(p);
+                }
+            }
             if (serial_cmd.command() == SCMD_PROGRAM) {
                 program_t pr = cur_prog_;
                 uint16_t p = cur_prog_id_;
@@ -351,6 +390,22 @@ void loop() {
                 Serial.print(" \"");
                 Serial.print(pr.title());
                 Serial.println("\"");
+            }
+            if (serial_cmd.command() == SCMD_DISPLAY_DUMP) {
+                uint16_t update_period = 0;
+
+                serial_cmd.get_arg(1, update_period);
+
+                if (update_period) {
+                    stimer::schedule_in(STIMER_DISPLAY_UPDATE, update_period, update_period);
+                } else {
+                    stimer::cancel(STIMER_DISPLAY_UPDATE);
+                }
+
+                Serial.print("D ");
+                Serial.write(screen::buf, sizeof(screen::buf));
+                Serial.println("");
+                display_1602::dirty = false;
             }
 
             serial_cmd.reset();

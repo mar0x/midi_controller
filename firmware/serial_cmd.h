@@ -48,7 +48,8 @@ enum {
     SCMD_RESTORE,            // RS
     SCMD_MUTE,               // MT m
     SCMD_PROGRAM,            // PR p t n
-    SCMD_MIDI_CHANNEL,       // MC c
+    SCMD_MIDI_CHANNEL_IN,    // MCI c
+    SCMD_MIDI_CHANNEL_OUT,   // MCO c
     SCMD_MIDI_LOOP_IN_CTRL,  // MLI l c
     SCMD_MIDI_LOOP_OUT_CTRL, // MLO l c
     SCMD_MIDI_PROG_OUT,      // MO o

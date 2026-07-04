@@ -109,7 +109,6 @@ serial_cmd_t::parse() {
             if (b[0] == 'S' && b[1] == 'T') { command_ = SCMD_STORE; }
             if (b[0] == 'R' && b[1] == 'S') { command_ = SCMD_RESTORE; }
             if (b[0] == 'P' && b[1] == 'R') { command_ = SCMD_PROGRAM; }
-            if (b[0] == 'M' && b[1] == 'C') { command_ = SCMD_MIDI_CHANNEL; }
             if (b[0] == 'M' && b[1] == 'O') { command_ = SCMD_MIDI_PROG_OUT; }
             if (b[0] == 'M' && b[1] == 'F') { command_ = SCMD_MIDI_FORWARD; }
             if (b[0] == 'D' && b[1] == 'L') { command_ = SCMD_DEBUG_LEVEL; }
@@ -123,6 +122,8 @@ serial_cmd_t::parse() {
         case 3:
             if (b[0] == 'M' && b[1] == 'L' && b[2] == 'I') { command_ = SCMD_MIDI_LOOP_IN_CTRL; }
             if (b[0] == 'M' && b[1] == 'L' && b[2] == 'O') { command_ = SCMD_MIDI_LOOP_OUT_CTRL; }
+            if (b[0] == 'M' && b[1] == 'C' && b[2] == 'I') { command_ = SCMD_MIDI_CHANNEL_IN; }
+            if (b[0] == 'M' && b[1] == 'C' && b[2] == 'O') { command_ = SCMD_MIDI_CHANNEL_OUT; }
             if (b[0] == 'M' && b[1] == 'M' && b[2] == 'I') { command_ = SCMD_MIDI_MON_IN; }
             if (b[0] == 'M' && b[1] == 'M' && b[2] == 'O') { command_ = SCMD_MIDI_MON_OUT; }
             if (b[0] == 'M' && b[1] == 'D' && b[2] == 'S') { command_ = SCMD_MIDI_DUMP_SEND; }
@@ -151,10 +152,11 @@ PR [<P> [<T> [<NAME>]]]
 
  Simulation:
 B [L/R/U/D/S] - button press
-D - display dump
+D [MS] - display dump
 
  Settings:
-MC [<C>] - MIDI channel
+MCI [<C>] - MIDI in channel
+MCO [<C>] - MIDI out channel
 MLI <T> [<C>] - MIDI in loop controller
 MLO <T> [<C>] - MIDI out loop controller
 MO [1/0] - MIDI out program change
