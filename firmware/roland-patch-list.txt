@@ -1,0 +1,198 @@
+No; Name; Voice
+1; Marcus 3way; 3
+2; MM Slap Bass; 2
+3; MM Fat Slap; 1
+4; Miller Pop; 1
+5; MM Dynathumb; 1
+6; Abe Sr. 4way; 4
+7; Abe 3way Bs; 3
+8; AL 3way P.Bs; 3
+9; Space Bass; 3
+10; Hyper Funk; 3
+11; Abe's Thumbs; 1
+12; AL Dark Slap; 1
+13; Poppin' Abe; 1
+14; John P.4way; 4
+15; John P.3way; 3
+16; JP Chorus Bs; 4
+17; 6StringThing; 3
+18; Mondo Johndo; 4
+19; JP Fat Slap; 1
+20; JP Brite Slp; 1
+21; JP Fung+Slap; 2
+22; Solo Fretles; 3
+23; MM FretnotBs; 1
+24; Marcus OctFl; 2
+25; MM FrtlsBend; 1
+26; MM Smooth Fl; 1
+27; MM Weathery; 1
+28; Abe's Fretls; 1
+29; AL French Ch; 1
+30; AL Layer Fls; 3
+31; AL Fls Solo; 1
+32; JP 6Str Fls; 1
+33; JP Solo Fls; 1
+34; John's OctFl; 2
+35; B-Motional; 3
+36; Weather Frls; 3
+37; AcoustiTouch; 3
+38; JP Soft A.Bs; 1
+39; JP Hard A.Bs; 1
+40; Ac.Bs Club; 2
+41; Dry Acoustic; 3
+42; Hybrid Wood; 2
+43; John's Rock; 1
+44; Pick UP; 1
+45; JP Rock Pick; 1
+46; Dark Pick; 1
+47; JP Rock+Slap; 2
+48; JP Rock Fls; 2
+49; Velo Rock Bs; 3
+50; JP P.Bass 1; 1
+51; JP P.Bass 2; 1
+52; JP P.Bass 3; 2
+53; JP P.Bass 4; 2
+54; Dyno Ballad; 2
+55; Velo Fingers; 3
+56; Ch. Fingers; 3
+57; StudioMellow; 1
+58; Fat Fingers; 3
+59; Touchy Bass; 4
+60; Abe's P.Bass; 2
+61; AL Solid Fng; 1
+62; AL 2way Fng; 2
+63; Abe Soft Bs; 1
+64; Abe Latin Bs; 1
+65; AL Latin Ch.; 2
+66; AL Fat Latin; 1
+67; AL Ols Soul; 1
+68; AL Mellow; 1
+69; Marcus Jazz; 1
+70; MM Jazz Ch.; 1
+71; MM Jazz Bs; 1
+72; Marcus Mute; 1
+73; Bright Pick; 1
+74; Garden Party; 3
+75; Phaser Mute; 2
+76; MM Dry Mute; 1
+77; MM Hip-Hop; 1
+78; Rock Flanger; 2
+79; Sticky Bass; 2
+80; Abe Flangpop; 1
+81; Mutey SynBs; 3
+82; T-Wow Fretls; 2
+83; T-Wow Slappy; 2
+84; Refretter 1; 3
+85; Refretter 2; 4
+86; Bass Harmos; 1
+87; Marcus Harms; 1
+88; Harmonicus; 1
+89; Tune Up; 4
+90; Harm Up; 4
+91; Harm Down; 4
+92; Harm A#9; 4
+93; Harm Eb#9; 4
+94; Harm E+11; 4
+95; Harm E69; 4
+96; Harm E69; 4
+97; All Slides; 1
+98; All Noises; 1
+99; Ac.Bs Noises; 1
+100; Kick Menu; 1
+101; Snare Menu 1; 1
+102; Snare Menu 2; 1
+103; Snare Menu 3; 1
+104; Hi-Hat Menu; 1
+105; Tom-Tom Menu; 1
+106; Cymbals Menu; 1
+107; Drum LP Menu; 1
+108; Sweeping LPs; 2
+109; SlapHappy 90; 4
+110; PlayC4Fun 90; 2
+111; Flanged 112; 1
+112; BW Jz 6.8 52; 1
+113; BW Brush 66; 1
+114; AL Slam 66; 1
+115; AL Whack 76; 1
+116; AL Grunge 84; 1
+117; BW Swamp 90; 1
+118; BW Latin 102; 1
+119; BW Fusion112; 1
+120; AL Funk 120; 1
+121; AL Shuff.126; 1
+122; Fat Rock KIT; 4
+123; Ringer KIT; 4
+124; DynaPicc.KIT; 4
+125; Whammer KIT; 4
+126; BigBalladKIT; 4
+127; Fat PuncKIT; 4
+128; Fat Funk KIT; 4
+129; Garage KIT; 4
+130; Rock On KIT; 4
+131; Natural KIT; 4
+132; Piched KIT; 4
+133; Basher KIT; 4
+134; Edgy KIT; 4
+135; FAT Comp.KIT; 4
+136; FAT & Tight; 4
+137; Studio KIT; 4
+138; Tight FunKIT; 4
+139; TightPiccKit; 4
+140; Dry DanceKIT; 4
+141; R&B KIT; 4
+142; DynoSnareKIT; 4
+143; Room Toms; 2
+144; Natural Toms; 2
+145; Soft Toms; 1
+146; Big Toms Dry; 2
+147; Big Toms Wet; 2
+148; Ringer Snare; 2
+149; Loud Ring Sn; 2
+150; Live Piccolo; 2
+151; Wet Piccolo; 2
+152; Natural Crak; 2
+153; Natural Verb; 2
+154; Natural Bryt; 2
+155; Dry Ringer; 2
+156; Rock On Room; 2
+157; Rock On Wet; 2
+158; FAT Impact; 2
+159; Nice Ballad; 2
+160; Huge FAT Snr; 2
+161; Warm Room Sn; 2
+162; Warm Verb Sn; 2
+163; Dry FAT Sn; 2
+164; FAT Hall Sn; 2
+165; Funk Sn Dry; 2
+166; Funk Sn Room; 2
+167; Natural Ping; 2
+168; Room Ping; 2
+169; Dance Snr 1; 2
+170; Dance Snr 2; 2
+171; Kick&Cym 1/2; 2
+172; Kick&Cym 1/4; 2
+173; Kick&Cym 2; 1
+174; Butt Kicker; 2
+175; Kick&Cym 2/3; 2
+176; Kick&Cym 2/8; 2
+177; Kick&Cym 3; 1
+178; Kick&Cym 4; 1
+179; Kick&Cym 5; 1
+180; Kick&Cym 6; 1
+181; Kick&Cym 7; 1
+182; Kick&Cym 6/8; 2
+183; Kick&Cym 8; 1
+184; Kick&Cym 8/2; 2
+185; Kick&Cym 9; 1
+186; Kick&Cym 9/6; 2
+187; Kick&Cym 10; 1
+188; Kick&Cym 11; 1
+189; Kick&Cym 12; 1
+190; Kick&Cym11/12; 2
+191; Kick&Cym12/4; 2
+192; Lo-Fi Kick; 1
+193; 18*Hi-Hats1; 2
+194; 18*Hi-Hats2; 3
+195; 16*Hi-Hats1; 2
+196; 16*Hi-Hats2; 2
+197; CR-78 Hi-Hat; 1
