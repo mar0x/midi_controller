@@ -17,6 +17,7 @@ struct screen_buf_t {
 
     static void clear();
     static void clear(uint8_t line);
+    static void fill(uint8_t end_pos = COLUMNS, char c = ' ');
 
     static void update(uint8_t col, uint8_t row, uint8_t size);
     static void update(uint8_t col, uint8_t row);
@@ -65,6 +66,17 @@ template<typename DISP, uint8_t LINES, uint8_t COLUMNS>
 void screen_buf_t<DISP, LINES, COLUMNS>::clear(uint8_t line) {
     memset(buf + line * COLUMNS, ' ', COLUMNS);
     update(0, line, COLUMNS);
+}
+
+template<typename DISP, uint8_t LINES, uint8_t COLUMNS>
+void screen_buf_t<DISP, LINES, COLUMNS>::fill(uint8_t end_pos, char c) {
+    uint8_t col = (pos % COLUMNS);
+    if (col) {
+        uint8_t size = end_pos - col;
+        memset(buf + pos, c, size);
+        display_type::write(buf + pos, size);
+        pos += size;
+    }
 }
 
 template<typename DISP, uint8_t LINES, uint8_t COLUMNS>
@@ -127,7 +139,7 @@ uint8_t screen_buf_t<DISP, LINES, COLUMNS>::write_pgm(const char *c, uint8_t siz
     memcpy_P(buf + pos, c, size);
     pos += size;
 
-    return display_type::write(c, size);
+    return display_type::write(buf + pos - size, size);
 }
 
 template<typename DISP, uint8_t LINES, uint8_t COLUMNS>

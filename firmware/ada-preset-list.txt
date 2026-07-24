@@ -1,0 +1,69 @@
+1 Marshall
+2 Notched Grind
+3 Liquid Grind
+4 Edge Rhythm
+5 Saturated Notch
+6 Clean with Compression
+7 Clean and Warm
+8 Compressed Vibrato
+9 Over Chorused Clean
+10 Beefy Fender
+11 Brittle Rhythm
+12 Chorused Lead
+13 Classic Clean
+14 Shimmering Clean
+15 Slap Funk
+16 Flanged Rockman
+17 Tubular Metal
+18 Clean Flange
+19 Straight Ahead Metal
+20 Classic Overdrive
+21 Damped Lead
+22 Notched Lead
+23 Dry Lead
+24 Rockman
+25 Crystal Clean
+26 Sparkling Chorus
+27 Compressed Chorus
+28 Mild Grind
+29 Compressed Rhythm
+30 Humbuck Hot Rod
+31 Humbuck Heavy Mod
+32 Humbuck 50 Watt Stock
+33 Sgt. Coil 50 Watt Clean
+34 Sgt. Coil 50 Watt Tube Clean
+35 Humbuck Tube Clean
+36 Humbuck 50 Watt Clean
+37 Sgl. Coil 50 Watt Stock
+38 Sgl. Coil 50 Watt Hot Rod
+39 Sgl. Coil 50 Watt Heavy Mod
+40 Rhythm Jazz
+41 Fat Jazz
+42 Chorus Jazz
+43 Jazz Sweep
+44 Solo Jazz I
+45 Solid Jazz
+46 New Age
+47 Compressed Jazz
+48 Jazz Edge
+49 Solo Jazz II
+50 Flat Pick
+51 Fat Pick
+52 Chorus Country
+53 Country Vibrato
+54 Country Rhythm
+55 Country Crunch
+56 Compressed Flat
+57 Compressed Fat
+58 Country Slide
+59 Country Lead
+60 Humbuck Hot Rod
+61 Humbuck Heavy Mod
+62 Humbuck 50 Watt Stock
+63 Sgl. Coil 50 Watt Clean
+64 Sgl. Coil 50 Watt Tube Clean
+65 Humbuck Tube Clean
+66 Humbuck 50 Watt Clean
+67 Sgi. Coil 50 Watt Stock
+68 Sgl. Coil 50 Watt Hot Rod
+69 Sgl. Coil 50 Watt Heavy Mod

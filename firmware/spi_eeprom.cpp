@@ -24,8 +24,14 @@ enum sr_mask {
     WPEN = (1 << 7),
 };
 
+enum {
+    PAGE_SIZE = 64,
+    PAGE_MASK = 0xFFC0,
+};
+
 using midi_controller::eeprom_cs;
 using midi_controller::spi;
+using addr_type = midi_controller::spi_eeprom::addr_type;
 
 struct transfer_scope {
     transfer_scope() { eeprom_cs::active(); }
@@ -43,6 +49,9 @@ void wait_ready();
 void write_enable();
 void write_disable();
 
+void get_page(addr_type addr, uint8_t *b, uint8_t size);
+void put_page(addr_type addr, const uint8_t *b, uint8_t size);
+
 }
 
 namespace midi_controller {
@@ -52,38 +61,39 @@ void spi_eeprom::setup() {
 }
 
 void spi_eeprom::get(addr_type addr, uint8_t *b, size_type size) {
-    wait_ready();
+    while (size) {
+        addr_type chunk_page = addr & PAGE_MASK;
+        size_type chunk_size = size;
+        size_type max_chunk_size = chunk_page + PAGE_SIZE - addr;
 
-    {
-        transfer_scope ts;
-
-        spi::send(READ);
-        spi::send(addr >> 8);
-        spi::send(addr & 0xFF);
-
-        for (; size; --size) {
-            *b++ = spi::recv();
+        if (chunk_size > max_chunk_size) {
+            chunk_size = max_chunk_size;
         }
+
+        get_page(addr, b, chunk_size);
+
+        addr += chunk_size;
+        size -= chunk_size;
+        b += chunk_size;
     }
 }
 
 void spi_eeprom::put(addr_type addr, const uint8_t *b, size_type size) {
-    wait_ready();
-    write_enable();
+    while (size) {
+        addr_type chunk_page = addr & PAGE_MASK;
+        size_type chunk_size = size;
+        size_type max_chunk_size = chunk_page + PAGE_SIZE - addr;
 
-    {
-        transfer_scope ts;
-
-        spi::send(WRITE);
-        spi::send(addr >> 8);
-        spi::send(addr & 0xFF);
-
-        for (; size; --size) {
-            spi::send(*b++);
+        if (chunk_size > max_chunk_size) {
+            chunk_size = max_chunk_size;
         }
-    }
 
-    write_disable();
+        put_page(addr, b, chunk_size);
+
+        addr += chunk_size;
+        size -= chunk_size;
+        b += chunk_size;
+    }
 }
 
 }
@@ -113,6 +123,44 @@ void write_disable() {
     transfer_scope ts;
 
     spi::send(WRDI);
+}
+
+void get_page(addr_type addr, uint8_t *b, uint8_t size) {
+    // size <= PAGE_SIZE
+    // (addr & PAGE_MASK) == ((addr + size - 1) & PAGE_MASK)
+
+    wait_ready();
+
+    {
+        transfer_scope ts;
+
+        spi::send(READ);
+        spi::send(addr >> 8);
+        spi::send(addr & 0xFF);
+
+        for (; size; --size) {
+            *b++ = spi::recv();
+        }
+    }
+}
+
+void put_page(addr_type addr, const uint8_t *b, uint8_t size) {
+    wait_ready();
+    write_enable();
+
+    {
+        transfer_scope ts;
+
+        spi::send(WRITE);
+        spi::send(addr >> 8);
+        spi::send(addr & 0xFF);
+
+        for (; size; --size) {
+            spi::send(*b++);
+        }
+    }
+
+    write_disable();
 }
 
 }

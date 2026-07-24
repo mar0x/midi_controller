@@ -2,8 +2,8 @@
 
 namespace midi_controller {
 
-struct serial_num_t {
-    char buf[4];
+struct hardware_id_t {
+    char buf[10];
 
     operator char*() { return buf; }
     operator const char*() const { return buf; }

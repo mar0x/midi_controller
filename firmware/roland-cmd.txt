@@ -1,0 +1,197 @@
+PR 1 0 "Marcus 3way" 0
+PR 1 1 "MM Slap Bass" 1
+PR 1 2 "MM Fat Slap" 2
+PR 1 3 "Miller Pop" 3
+PR 1 4 "MM Dynathumb" 4
+PR 1 5 "Abe Sr. 4way" 5
+PR 1 6 "Abe 3way Bs" 6
+PR 1 7 "AL 3way P.Bs" 7
+PR 1 8 "Space Bass" 8
+PR 1 9 "Hyper Funk" 9
+PR 1 10 "Abe's Thumbs" 10
+PR 1 11 "AL Dark Slap" 11
+PR 1 12 "Poppin' Abe" 12
+PR 1 13 "John P.4way" 13
+PR 1 14 "John P.3way" 14
+PR 1 15 "JP Chorus Bs" 15
+PR 1 16 "6StringThing" 16
+PR 1 17 "Mondo Johndo" 17
+PR 1 18 "JP Fat Slap" 18
+PR 1 19 "JP Brite Slp" 19
+PR 1 20 "JP Fung+Slap" 20
+PR 1 21 "Solo Fretles" 21
+PR 1 22 "MM FretnotBs" 22
+PR 1 23 "Marcus OctFl" 23
+PR 1 24 "MM FrtlsBend" 24
+PR 1 25 "MM Smooth Fl" 25
+PR 1 26 "MM Weathery" 26
+PR 1 27 "Abe's Fretls" 27
+PR 1 28 "AL French Ch" 28
+PR 1 29 "AL Layer Fls" 29
+PR 1 30 "AL Fls Solo" 30
+PR 1 31 "JP 6Str Fls" 31
+PR 1 32 "JP Solo Fls" 32
+PR 1 33 "John's OctFl" 33
+PR 1 34 "B-Motional" 34
+PR 1 35 "Weather Frls" 35
+PR 1 36 "AcoustiTouch" 36
+PR 1 37 "JP Soft A.Bs" 37
+PR 1 38 "JP Hard A.Bs" 38
+PR 1 39 "Ac.Bs Club" 39
+PR 1 40 "Dry Acoustic" 40
+PR 1 41 "Hybrid Wood" 41
+PR 1 42 "John's Rock" 42
+PR 1 43 "Pick UP" 43
+PR 1 44 "JP Rock Pick" 44
+PR 1 45 "Dark Pick" 45
+PR 1 46 "JP Rock+Slap" 46
+PR 1 47 "JP Rock Fls" 47
+PR 1 48 "Velo Rock Bs" 48
+PR 1 49 "JP P.Bass 1" 49
+PR 1 50 "JP P.Bass 2" 50
+PR 1 51 "JP P.Bass 3" 51
+PR 1 52 "JP P.Bass 4" 52
+PR 1 53 "Dyno Ballad" 53
+PR 1 54 "Velo Fingers" 54
+PR 1 55 "Ch. Fingers" 55
+PR 1 56 "StudioMellow" 56
+PR 1 57 "Fat Fingers" 57
+PR 1 58 "Touchy Bass" 58
+PR 1 59 "Abe's P.Bass" 59
+PR 1 60 "AL Solid Fng" 60
+PR 1 61 "AL 2way Fng" 61
+PR 1 62 "Abe Soft Bs" 62
+PR 1 63 "Abe Latin Bs" 63
+PR 1 64 "AL Latin Ch." 64
+PR 1 65 "AL Fat Latin" 65
+PR 1 66 "AL Ols Soul" 66
+PR 1 67 "AL Mellow" 67
+PR 1 68 "Marcus Jazz" 68
+PR 1 69 "MM Jazz Ch." 69
+PR 1 70 "MM Jazz Bs" 70
+PR 1 71 "Marcus Mute" 71
+PR 1 72 "Bright Pick" 72
+PR 1 73 "Garden Party" 73
+PR 1 74 "Phaser Mute" 74
+PR 1 75 "MM Dry Mute" 75
+PR 1 76 "MM Hip-Hop" 76
+PR 1 77 "Rock Flanger" 77
+PR 1 78 "Sticky Bass" 78
+PR 1 79 "Abe Flangpop" 79
+PR 1 80 "Mutey SynBs" 80
+PR 1 81 "T-Wow Fretls" 81
+PR 1 82 "T-Wow Slappy" 82
+PR 1 83 "Refretter 1" 83
+PR 1 84 "Refretter 2" 84
+PR 1 85 "Bass Harmos" 85
+PR 1 86 "Marcus Harms" 86
+PR 1 87 "Harmonicus" 87
+PR 1 88 "Tune Up" 88
+PR 1 89 "Harm Up" 89
+PR 1 90 "Harm Down" 90
+PR 1 91 "Harm A#9" 91
+PR 1 92 "Harm Eb#9" 92
+PR 1 93 "Harm E+11" 93
+PR 1 94 "Harm E69" 94
+PR 1 95 "Harm E69" 95
+PR 1 96 "All Slides" 96
+PR 1 97 "All Noises" 97
+PR 1 98 "Ac.Bs Noises" 98
+PR 1 99 "Kick Menu" 99
+PR 1 100 "Snare Menu 1" 100
+PR 1 101 "Snare Menu 2" 101
+PR 1 102 "Snare Menu 3" 102
+PR 1 103 "Hi-Hat Menu" 103
+PR 1 104 "Tom-Tom Menu" 104
+PR 1 105 "Cymbals Menu" 105
+PR 1 106 "Drum LP Menu" 106
+PR 1 107 "Sweeping LPs" 107
+PR 1 108 "SlapHappy 90" 108
+PR 1 109 "PlayC4Fun 90" 109
+PR 1 110 "Flanged 112" 110
+PR 1 111 "BW Jz 6.8 52" 111
+PR 1 112 "BW Brush 66" 112
+PR 1 113 "AL Slam 66" 113
+PR 1 114 "AL Whack 76" 114
+PR 1 115 "AL Grunge 84" 115
+PR 1 116 "BW Swamp 90" 116
+PR 1 117 "BW Latin 102" 117
+PR 1 118 "BW Fusion112" 118
+PR 1 119 "AL Funk 120" 119
+PR 1 120 "AL Shuff.126" 120
+PR 1 121 "Fat Rock KIT" 121
+PR 1 122 "Ringer KIT" 122
+PR 1 123 "DynaPicc.KIT" 123
+PR 1 124 "Whammer KIT" 124
+PR 1 125 "BigBalladKIT" 125
+PR 1 126 "Fat PuncKIT" 126
+PR 1 127 "Fat Funk KIT" 127
+PR 1 128 "Garage KIT" 128
+PR 1 129 "Rock On KIT" 129
+PR 1 130 "Natural KIT" 130
+PR 1 131 "Piched KIT" 131
+PR 1 132 "Basher KIT" 132
+PR 1 133 "Edgy KIT" 133
+PR 1 134 "FAT Comp.KIT" 134
+PR 1 135 "FAT & Tight" 135
+PR 1 136 "Studio KIT" 136
+PR 1 137 "Tight FunKIT" 137
+PR 1 138 "TightPiccKit" 138
+PR 1 139 "Dry DanceKIT" 139
+PR 1 140 "R&B KIT" 140
+PR 1 141 "DynoSnareKIT" 141
+PR 1 142 "Room Toms" 142
+PR 1 143 "Natural Toms" 143
+PR 1 144 "Soft Toms" 144
+PR 1 145 "Big Toms Dry" 145
+PR 1 146 "Big Toms Wet" 146
+PR 1 147 "Ringer Snare" 147
+PR 1 148 "Loud Ring Sn" 148
+PR 1 149 "Live Piccolo" 149
+PR 1 150 "Wet Piccolo" 150
+PR 1 151 "Natural Crak" 151
+PR 1 152 "Natural Verb" 152
+PR 1 153 "Natural Bryt" 153
+PR 1 154 "Dry Ringer" 154
+PR 1 155 "Rock On Room" 155
+PR 1 156 "Rock On Wet" 156
+PR 1 157 "FAT Impact" 157
+PR 1 158 "Nice Ballad" 158
+PR 1 159 "Huge FAT Snr" 159
+PR 1 160 "Warm Room Sn" 160
+PR 1 161 "Warm Verb Sn" 161
+PR 1 162 "Dry FAT Sn" 162
+PR 1 163 "FAT Hall Sn" 163
+PR 1 164 "Funk Sn Dry" 164
+PR 1 165 "Funk Sn Room" 165
+PR 1 166 "Natural Ping" 166
+PR 1 167 "Room Ping" 167
+PR 1 168 "Dance Snr 1" 168
+PR 1 169 "Dance Snr 2" 169
+PR 1 170 "Kick&Cym 1/2" 170
+PR 1 171 "Kick&Cym 1/4" 171
+PR 1 172 "Kick&Cym 2" 172
+PR 1 173 "Butt Kicker" 173
+PR 1 174 "Kick&Cym 2/3" 174
+PR 1 175 "Kick&Cym 2/8" 175
+PR 1 176 "Kick&Cym 3" 176
+PR 1 177 "Kick&Cym 4" 177
+PR 1 178 "Kick&Cym 5" 178
+PR 1 179 "Kick&Cym 6" 179
+PR 1 180 "Kick&Cym 7" 180
+PR 1 181 "Kick&Cym 6/8" 181
+PR 1 182 "Kick&Cym 8" 182
+PR 1 183 "Kick&Cym 8/2" 183
+PR 1 184 "Kick&Cym 9" 184
+PR 1 185 "Kick&Cym 9/6" 185
+PR 1 186 "Kick&Cym 10" 186
+PR 1 187 "Kick&Cym 11" 187
+PR 1 188 "Kick&Cym 12" 188
+PR 1 189 "Kick&Cym11/12" 189
+PR 1 190 "Kick&Cym12/4" 190
+PR 1 191 "Lo-Fi Kick" 191
+PR 1 192 "18*Hi-Hats1" 192
+PR 1 193 "18*Hi-Hats2" 193
+PR 1 194 "16*Hi-Hats1" 194
+PR 1 195 "16*Hi-Hats2" 195
+PR 1 196 "CR-78 Hi-Hat" 196

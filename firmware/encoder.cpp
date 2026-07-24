@@ -54,13 +54,6 @@ void enc_cb::update() {
 
     if (ret) {
         encoder::on_rotate(ret);
-
-        if (Serial.dtr()) {
-            Serial.print("enc(");
-            Serial.print(ret);
-            Serial.print("): ");
-            Serial.println(pos);
-        }
     }
 
     pos += ret;

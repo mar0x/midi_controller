@@ -1,0 +1,69 @@
+PR 2 0 "Marshall" 0
+PR 2 1 "Notched Grind" 1
+PR 2 2 "Liquid Grind" 2
+PR 2 3 "Edge Rhythm" 3
+PR 2 4 "Saturated Notch" 4
+PR 2 5 "Clean with Compression" 5
+PR 2 6 "Clean and Warm" 6
+PR 2 7 "Compressed Vibrato" 7
+PR 2 8 "Over Chorused Clean" 8
+PR 2 9 "Beefy Fender" 9
+PR 2 10 "Brittle Rhythm" 10
+PR 2 11 "Chorused Lead" 11
+PR 2 12 "Classic Clean" 12
+PR 2 13 "Shimmering Clean" 13
+PR 2 14 "Slap Funk" 14
+PR 2 15 "Flanged Rockman" 15
+PR 2 16 "Tubular Metal" 16
+PR 2 17 "Clean Flange" 17
+PR 2 18 "Straight Ahead Metal" 18
+PR 2 19 "Classic Overdrive" 19
+PR 2 20 "Damped Lead" 20
+PR 2 21 "Notched Lead" 21
+PR 2 22 "Dry Lead" 22
+PR 2 23 "Rockman" 23
+PR 2 24 "Crystal Clean" 24
+PR 2 25 "Sparkling Chorus" 25
+PR 2 26 "Compressed Chorus" 26
+PR 2 27 "Mild Grind" 27
+PR 2 28 "Compressed Rhythm" 28
+PR 2 29 "Humbuck Hot Rod" 29
+PR 2 30 "Humbuck Heavy Mod" 30
+PR 2 31 "Humbuck 50 Watt Stock" 31
+PR 2 32 "Sgt. Coil 50 Watt Clean" 32
+PR 2 33 "Sgt. Coil 50 Watt Tube Clean" 33
+PR 2 34 "Humbuck Tube Clean" 34
+PR 2 35 "Humbuck 50 Watt Clean" 35
+PR 2 36 "Sgl. Coil 50 Watt Stock" 36
+PR 2 37 "Sgl. Coil 50 Watt Hot Rod" 37
+PR 2 38 "Sgl. Coil 50 Watt Heavy Mod" 38
+PR 2 39 "Rhythm Jazz" 39
+PR 2 40 "Fat Jazz" 40
+PR 2 41 "Chorus Jazz" 41
+PR 2 42 "Jazz Sweep" 42
+PR 2 43 "Solo Jazz I" 43
+PR 2 44 "Solid Jazz" 44
+PR 2 45 "New Age" 45
+PR 2 46 "Compressed Jazz" 46
+PR 2 47 "Jazz Edge" 47
+PR 2 48 "Solo Jazz II" 48
+PR 2 49 "Flat Pick" 49
+PR 2 50 "Fat Pick" 50
+PR 2 51 "Chorus Country" 51
+PR 2 52 "Country Vibrato" 52
+PR 2 53 "Country Rhythm" 53
+PR 2 54 "Country Crunch" 54
+PR 2 55 "Compressed Flat" 55
+PR 2 56 "Compressed Fat" 56
+PR 2 57 "Country Slide" 57
+PR 2 58 "Country Lead" 58
+PR 2 59 "Humbuck Hot Rod" 59
+PR 2 60 "Humbuck Heavy Mod" 60
+PR 2 61 "Humbuck 50 Watt Stock" 61
+PR 2 62 "Sgl. Coil 50 Watt Clean" 62
+PR 2 63 "Sgl. Coil 50 Watt Tube Clean" 63
+PR 2 64 "Humbuck Tube Clean" 64
+PR 2 65 "Humbuck 50 Watt Clean" 65
+PR 2 66 "Sgi. Coil 50 Watt Stock" 66
+PR 2 67 "Sgl. Coil 50 Watt Hot Rod" 67
+PR 2 68 "Sgl. Coil 50 Watt Heavy Mod" 68

@@ -3,74 +3,45 @@
 #include <stdint.h>
 #include <string.h>
 
-/*
-
-PC [<P>]
-CC <C> [<V>]
-
-LP [<L> [<V>]]
-NM [<NAME>]
-ST
-RS
-MT [1/0]
-
-      3     4      15
-PR [ <P> [ <L> [ <NAME> [ <PATCHES> ] ] ] ]
-<P> <L> <NAME> [ <PATCHES> ]
-
-MC [ <C> ]
-<C>
-
-MPI <L> [ <C> ]
-MPO <L> [ <C> ]
-MO [ 1/0 ]
-MF [ 1/0 ]
-DL [ <L> ]
-MD [ <ms> ]
-HC [ <s> ]
-V
-E [ 1/0 ]
-
-FR <V>
-
-*/
-
 namespace midi_controller {
 
 enum {
     SCMD_UNKNOWN,
-    SCMD_PROG_CHANGE,        // PC p
-    SCMD_CTRL_CHANGE,        // CC c v
-    SCMD_LOOP,               // LP l v
+    SCMD_PROGRAM_CHANGE,     // PC f p
+    SCMD_PROGRAM,            // PR f p "n" s
+    SCMD_PROFILE,            // PF f "n" c p
+
+    SCMD_DISPLAY_DUMP,       // D s
+
+    SCMD_MIDI_CHANNEL,       // MC c
+    SCMD_PROGRAM_START,      // PS 0/1
+    SCMD_CHANNEL_START,      // CS 0/1
+
+    SCMD_DEVICE_TITLE,       // DT "t"
+    SCMD_FACTORY_DATA,       // FD l
+
+    SCMD_SERIAL_NUMBER,      // SN
+    SCMD_HARDWARE,           // HW
+    SCMD_VERSION,            // V
+    SCMD_HELP,               // ?
+
     SCMD_NAME,               // NM n
     SCMD_MODE,               // MD m
     SCMD_STORE,              // ST
     SCMD_RESTORE,            // RS
-    SCMD_MUTE,               // MT m
-    SCMD_PROGRAM,            // PR p t n
-    SCMD_MIDI_CHANNEL_IN,    // MCI c
-    SCMD_MIDI_CHANNEL_OUT,   // MCO c
-    SCMD_MIDI_LOOP_IN_CTRL,  // MLI l c
-    SCMD_MIDI_LOOP_OUT_CTRL, // MLO l c
     SCMD_MIDI_PROG_OUT,      // MO o
     SCMD_MIDI_FORWARD,       // MF f
     SCMD_DEBUG_LEVEL,        // DL l
-    SCMD_MUTE_DELAY,         // ML s
     SCMD_HIDE_CURSOR_DELAY,  // HC s
-    SCMD_VERSION,            // V
     SCMD_ECHO,               // E e
     SCMD_FACTORY_RESET,      // FR v
     SCMD_MIDI_MON_IN,        // MMI
     SCMD_MIDI_MON_OUT,       // MMO
     SCMD_MIDI_DUMP_SEND,     // MDS
     SCMD_MIDI_DUMP_RECV,     // MDR
-    SCMD_HELP,               // ?
 
     SCMD_BTN_PRESS,          // B b
-    SCMD_DISPLAY_DUMP,       // D
 
-    SCMD_SERIAL_NUMBER,      // SN
-    SCMD_HARDWARE,           // HW
 };
 
 struct serial_cmd_t {
@@ -95,27 +66,27 @@ struct serial_cmd_t {
     uint8_t command() const { return command_; }
 
     template<typename T>
-    bool get_hex(uint8_t s, uint8_t e, T& v);
+    bool get_hex(uint8_t s, uint8_t e, T& v) const;
 
     template<typename T>
-    bool get_dec(uint8_t s, uint8_t e, T& v);
+    bool get_dec(uint8_t s, uint8_t e, T& v) const;
 
     template<typename T>
-    bool get_bin(uint8_t s, uint8_t e, T& v);
+    bool get_bin(uint8_t s, uint8_t e, T& v) const;
 
     template<typename T>
-    bool get_num(uint8_t n, T& v);
+    bool get_num(uint8_t n, T& v) const;
 
-    bool get_arg(uint8_t n, uint8_t& v) {
+    bool get_arg(uint8_t n, uint8_t& v) const {
         return get_num(n, v);
     }
 
-    bool get_arg(uint8_t n, uint16_t& v) {
+    bool get_arg(uint8_t n, uint16_t& v) const {
         return get_num(n, v);
     }
 
     template<typename T>
-    bool get_arg(uint8_t n, T& v);
+    bool get_arg(uint8_t n, T& v) const;
 
 //private:
     void parse();
@@ -141,7 +112,7 @@ struct serial_cmd_t {
 namespace midi_controller {
 
 template<typename T>
-bool serial_cmd_t::get_hex(uint8_t s, uint8_t e, T& v) {
+bool serial_cmd_t::get_hex(uint8_t s, uint8_t e, T& v) const {
     for (uint8_t p = s; p < e; ++p) {
         if (buf_[p] >= '0' && buf_[p] <= '9') {
             v = v * 16 + (buf_[p] - '0');
@@ -158,7 +129,7 @@ bool serial_cmd_t::get_hex(uint8_t s, uint8_t e, T& v) {
 }
 
 template<typename T>
-bool serial_cmd_t::get_dec(uint8_t s, uint8_t e, T& v) {
+bool serial_cmd_t::get_dec(uint8_t s, uint8_t e, T& v) const {
     for (uint8_t p = s; p < e; ++p) {
         if (buf_[p] >= '0' && buf_[p] <= '9') {
             v = v * 10 + (buf_[p] - '0');
@@ -171,7 +142,7 @@ bool serial_cmd_t::get_dec(uint8_t s, uint8_t e, T& v) {
 }
 
 template<typename T>
-bool serial_cmd_t::get_bin(uint8_t s, uint8_t e, T& v) {
+bool serial_cmd_t::get_bin(uint8_t s, uint8_t e, T& v) const {
     for (uint8_t p = s; p < e; ++p) {
         if (buf_[p] >= '0' && buf_[p] <= '1') {
             v = (v << 1) + (buf_[p] - '0');
@@ -184,34 +155,36 @@ bool serial_cmd_t::get_bin(uint8_t s, uint8_t e, T& v) {
 }
 
 template<typename T>
-bool serial_cmd_t::get_num(uint8_t n, T& v) {
+bool serial_cmd_t::get_num(uint8_t n, T& v) const {
     if (n >= arg_size_) {
         return false;
     }
 
-    arg *a = &arg_[n];
+    const arg &a = arg_[n];
+    uint8_t s = a.start;
+    uint8_t e = a.end;
 
     v = 0;
 
-    if (a->end - a->start > 2) {
-        if (buf_[a->start] == '0' && (buf_[a->start + 1] == 'x' || buf_[a->start + 1] == 'X')) {
-            return get_hex(a->start + 2, a->end, v);
+    if (e - s > 2) {
+        if (buf_[s] == '0' && (buf_[s + 1] == 'x' || buf_[s + 1] == 'X')) {
+            return get_hex(s + 2, e, v);
         }
     }
 
-    if (a->end - a->start > 1) {
-        if (buf_[a->end - 1] == 'h' || buf_[a->end - 1] == 'H') {
-            return get_hex(a->start, a->end - 1, v);
+    if (e - s > 1) {
+        if (buf_[e - 1] == 'h' || buf_[e - 1] == 'H') {
+            return get_hex(s, e - 1, v);
         }
 
-        if (buf_[a->end - 1] == 'b' || buf_[a->end - 1] == 'B') {
-            return get_bin(a->start, a->end - 1, v);
+        if (buf_[e - 1] == 'b' || buf_[e - 1] == 'B') {
+            return get_bin(s, e - 1, v);
         }
     }
 
     n = 1;
 
-    for (uint8_t p = a->start; p < a->end; ++p) {
+    for (uint8_t p = s; p < e; ++p) {
         if (buf_[p] >= '0' && buf_[p] <= '1') {
             v = v + ((buf_[p] - '0') ? n : 0);
             n = n << 1;
@@ -221,7 +194,7 @@ bool serial_cmd_t::get_num(uint8_t n, T& v) {
         }
 
         ++p;
-        if (p >= a->end) return true;
+        if (p >= e) return true;
 
         if (buf_[p] != ',') {
             v = 0;
@@ -229,23 +202,20 @@ bool serial_cmd_t::get_num(uint8_t n, T& v) {
         }
     }
 
-    return get_dec(a->start, a->end, v);
+    return get_dec(s, e, v);
 }
 
 template<typename T>
-bool serial_cmd_t::get_arg(uint8_t n, T& v) {
+bool serial_cmd_t::get_arg(uint8_t n, T& v) const {
     if (n >= arg_size_) {
         return false;
     }
 
     uint8_t l = arg_[n].end - arg_[n].start;
-    uint8_t c = (l > sizeof(T)) ? sizeof(T) : l;
+    uint8_t c = (l > sizeof(T) - 1) ? sizeof(T) - 1 : l;
 
     memcpy(&v, &buf_[arg_[n].start], c);
-
-    if (l < sizeof(T)) {
-        memset(((uint8_t *) &v) + l, ' ', sizeof(T) - l);
-    }
+    memset(((uint8_t *) &v) + l, 0, sizeof(T) - l);
 
     return true;
 }

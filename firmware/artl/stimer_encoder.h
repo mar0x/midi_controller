@@ -74,7 +74,8 @@ struct stimer_encoder {
             ret -= 1;
         }
 
-        // if (ab == 0) { pos_ = 0; }
+        // inputs are pulled UP
+        if (ab == 3) { pos_ = 0; }
 
         return ret;
     }

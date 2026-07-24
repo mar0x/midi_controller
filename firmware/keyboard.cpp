@@ -15,7 +15,7 @@ struct ok_btn_cb {
 
 using ok_delayed = artl::delayed_in<
                           ok_btn_pin,
-                          artl::stimer_scheduler<stimer, STIMER_DELAY_OK, 5>,
+                          artl::stimer_scheduler<stimer, STIMER_DELAY_OK, BTN_DELAY_MS>,
                           ok_btn_cb>;
 
 struct up_btn_cb {
@@ -25,7 +25,7 @@ struct up_btn_cb {
 
 using up_delayed = artl::delayed_in<
                           up_btn_pin,
-                          artl::stimer_scheduler<stimer, STIMER_DELAY_UP, 5>,
+                          artl::stimer_scheduler<stimer, STIMER_DELAY_UP, BTN_DELAY_MS>,
                           up_btn_cb>;
 
 struct down_btn_cb {
@@ -35,7 +35,7 @@ struct down_btn_cb {
 
 using down_delayed = artl::delayed_in<
                           down_btn_pin,
-                          artl::stimer_scheduler<stimer, STIMER_DELAY_DOWN, 5>,
+                          artl::stimer_scheduler<stimer, STIMER_DELAY_DOWN, BTN_DELAY_MS>,
                           down_btn_cb>;
 
 struct left_btn_cb {
@@ -45,7 +45,7 @@ struct left_btn_cb {
 
 using left_delayed = artl::delayed_in<
                           left_btn_pin,
-                          artl::stimer_scheduler<stimer, STIMER_DELAY_LEFT, 5>,
+                          artl::stimer_scheduler<stimer, STIMER_DELAY_LEFT, BTN_DELAY_MS>,
                           left_btn_cb>;
 
 struct right_btn_cb {
@@ -55,7 +55,7 @@ struct right_btn_cb {
 
 using right_delayed = artl::delayed_in<
                           right_btn_pin,
-                          artl::stimer_scheduler<stimer, STIMER_DELAY_RIGHT, 5>,
+                          artl::stimer_scheduler<stimer, STIMER_DELAY_RIGHT, BTN_DELAY_MS>,
                           right_btn_cb>;
 
 }
@@ -84,14 +84,17 @@ void keyboard::update() {
 
 namespace {
 
-void ok_btn_cb::rise() { }
-void ok_btn_cb::fall() { }
+void ok_btn_cb::rise() { stimer::cancel(STIMER_HOLD_OK); }
+void ok_btn_cb::fall() {
+    keyboard::on_ok_press();
+    stimer::schedule_in(STIMER_HOLD_OK, BTN_HOLD_MS, keyboard::on_ok_hold);
+}
 
 void up_btn_cb::rise() { }
 void up_btn_cb::fall() { keyboard::on_up_press(); }
 
 void down_btn_cb::rise() { }
-void down_btn_cb::fall() { }
+void down_btn_cb::fall() { keyboard::on_down_press(); }
 
 void left_btn_cb::rise() { }
 void left_btn_cb::fall() { }
