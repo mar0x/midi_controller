@@ -1,6 +1,7 @@
 import { ProgramDesc } from './program.ts'
 import { EditableCell } from './editable_cell.ts'
 import { sendSelectProgram, sendProgram } from './connect.ts'
+import { moveProgram } from './progtable.ts'
 
 const radio_btn_name_re = /^program-(\d+)-select/;
 
@@ -15,13 +16,30 @@ function onRadioBtnClick(e: Event) {
     }
 }
 
-function onTextUpdate(e: Event) {
+function onSequenceUpdate(e: Event) {
+    const sequence_cell = e.target as EditableCell;
+    const ce = e as CustomEvent<string>;
+
+    const pr = sequence_cell.parentElement as ProgramRowElement;
+
+    console.log(`sequenceUpdate: ${ce.detail}`);
+
+    let seq_id = Number(ce.detail) - 1;
+    const prd = pr.prd;
+
+    if (seq_id < 0) seq_id = 0;
+    if (seq_id >= 200) seq_id = 199;
+
+    moveProgram(prd.profile_id, prd.seq_id, seq_id, true);
+}
+
+function onTitleUpdate(e: Event) {
     const ptitle = e.target as EditableCell;
     const ce = e as CustomEvent<string>;
 
     const pr = ptitle.parentElement as ProgramRowElement;
 
-    console.log(`textUpdate: ${ce.detail}`);
+    console.log(`titleUpdate: ${ce.detail}`);
 
     const prd = pr.prd.clone();
     prd.title = ce.detail;
@@ -33,14 +51,20 @@ export class ProgramRowElement extends HTMLTableRowElement {
     prd!: ProgramDesc;
     select_btn!: HTMLInputElement;
     ptitle!: EditableCell;
-    sequence_cell!: HTMLTableCellElement;
+    sequence_cell!: EditableCell;
 
     attach(prd: ProgramDesc): void {
         this.prd = prd;
 
         const select_cell: HTMLTableCellElement = this.insertCell(0);
-        this.sequence_cell = this.insertCell(1);
-        this.sequence_cell.textContent = String(prd.seq_id + 1);
+
+        const sequence_cell = document.createElement('td', { is: 'editable-cell' }) as EditableCell;
+        if (sequence_cell) {
+            this.sequence_cell = sequence_cell;
+            sequence_cell.textContent = String(prd.seq_id + 1);
+            this.appendChild(sequence_cell);
+            sequence_cell.addEventListener('textUpdate', onSequenceUpdate);
+        }
 
         const select_btn = document.createElement('input') as HTMLInputElement;
         if (select_btn) {
@@ -66,7 +90,7 @@ export class ProgramRowElement extends HTMLTableRowElement {
             this.appendChild(ptitle);
 
             this.ptitle = ptitle;
-            ptitle.addEventListener('textUpdate', onTextUpdate);
+            ptitle.addEventListener('textUpdate', onTitleUpdate);
         }
     }
 

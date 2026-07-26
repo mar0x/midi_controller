@@ -50,7 +50,7 @@ function insertProgramRow(tbody: HTMLTableSectionElement, pr: ProgramRowElement)
     tbody.appendChild(pr);
 }
 
-function moveProgram(profile_id: number, f: number, t: number, send: boolean = false) {
+export function moveProgram(profile_id: number, f: number, t: number, send: boolean = false) {
     const pt = profiles[profile_id];
     if (!pt) {
         console.log(`Profile #${profile_id} not found`);
@@ -275,7 +275,7 @@ function onProfileChannelUpdate(e: Event, pfd: ProfileDesc) {
 
     console.log(`profileChannelUpdate: ${ce.detail}`);
 
-    let channel = Number(ce.detail);
+    let channel = Number(ce.detail) - settings.channel_start;
     if (channel < 0) channel = 0;
     if (channel > 15) channel = 15;
 
@@ -314,7 +314,7 @@ function profileSettingsRow(id: number): string {
                        class="table table-dark table-hover">
                   <tbody>
                     <tr><th>Title</th><td is="editable-cell" id="profile-${id}-title">${pt.pfd.title}</td></tr>
-                    <tr><th>Out Channel</th><td is="editable-cell" id="profile-${id}-channel">${pt.pfd.channel}</td></tr>
+                    <tr><th>Out Channel</th><td is="editable-cell" id="profile-${id}-channel">${pt.pfd.channel + settings.channel_start}</td></tr>
                     <tr><th>MIDI Forward</th><td><input type="checkbox" checked/></td></tr>
                   </tbody>
                 </table>
@@ -349,7 +349,7 @@ export function updateProfile(pfd: ProfileDesc) {
         }
         const pchannel = document.querySelector(`#profile-${id}-channel`) as EditableCell;
         if (pchannel) {
-            pchannel.textContent = `${pfd.channel}`;
+            pchannel.textContent = `${pfd.channel + settings.channel_start}`;
         }
         // TODO: update profile settings: channel, port_mask etc.
         return;
@@ -376,7 +376,7 @@ export function updateProfile(pfd: ProfileDesc) {
 
     if (profileTabContent) {
         const extraColumnTitle = pfd.extraColumnTitle();
-        const extraColumn = extraColumnTitle ? `<th scope="col">${extraColumnTitle}</th>` : '';
+        const extraColumn = extraColumnTitle ? `<th scope="col" class="w10em">${extraColumnTitle}</th>` : '';
         const settings_row_html = profileSettingsRow(id);
         const content_html = `
             <div class="tab-pane fade ${content_class}" id="profile-${id}" role="tabpanel"
@@ -387,8 +387,8 @@ export function updateProfile(pfd: ProfileDesc) {
                      class="table table-dark table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">v</th>
-                    <th scope="col">#</th>
+                    <th scope="col" class="w5em">v</th>
+                    <th scope="col" class="w5em">#</th>
                     ${extraColumn}
                     <th scope="col">Title</th>
                   </tr>
