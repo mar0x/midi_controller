@@ -50,7 +50,7 @@ export class ProgramDesc {
         if (this.profile_id == 0) {
             const bank_no = Math.trunc(this.prog_id / 2).toString().padStart(2, '0');
             const bank_ab = (this.prog_id % 2) ? 'B' : 'A';
-            return `BANK${bank_no} ${bank_ab}`;
+            return `BANK${bank_no} ${bank_ab}, ${this.prog_id + 1}`;
         }
         if (this.profile_id == 1) {
             return `${this.prog_id + 1}`;
