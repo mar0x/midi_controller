@@ -1,5 +1,8 @@
-import { sendProgram, sendProfile } from './connect.ts'
+import { sendProgram, sendProfile, sendSelectProgram,
+         sendDeviceTitle, sendMIDIChannel, sendProgramStart,
+         sendChannelStart } from './connect.ts'
 import { Splitter } from './splitter.ts'
+import { invalidChannelFeedback } from './main.ts'
 import Sortable from 'sortablejs';
 
 import { ProgramDesc } from './program.ts'
@@ -16,6 +19,8 @@ class ProfileTab {
     program_by_id: ProgramRowElement[] = [];
     program_by_seq: ProgramRowElement[] = [];
 
+    cur_prog_id: number = 0;
+
     constructor(pfd: ProfileDesc) {
         this.pfd = pfd;
     }
@@ -23,7 +28,21 @@ class ProfileTab {
 
 const profiles: ProfileTab[] = [];
 
-let cur_prog_id: number = 0;
+function animateRow(currentRow: Element, targetRow: Element) {
+  const currentRect = currentRow.getBoundingClientRect();
+  const targetRect = targetRow.getBoundingClientRect();
+
+  const currentNewRect = targetRect;
+  const currentOffset = currentRect.top - currentNewRect.top;
+
+  currentRow.animate([
+    { transform: `translateY(${currentOffset}px)` },
+    { transform: 'translateY(0)' }
+  ], {
+    duration: 300,
+    easing: 'ease-in-out'
+  });
+}
 
 function insertProgramRow(tbody: HTMLTableSectionElement, pr: ProgramRowElement) {
     const pt = profiles[pr.prd.profile_id];
@@ -32,7 +51,6 @@ function insertProgramRow(tbody: HTMLTableSectionElement, pr: ProgramRowElement)
     for (let i = seq - 1; i >= 0; i--) {
         const p = pt.program_by_seq[i];
         if (p) {
-            //console.log(`Insert #${seq} after #${i}`);
             p.after(pr);
             return;
         }
@@ -41,7 +59,6 @@ function insertProgramRow(tbody: HTMLTableSectionElement, pr: ProgramRowElement)
     for (let i = seq + 1; i < pt.program_by_seq.length; i++) {
         const p = pt.program_by_seq[i];
         if (p) {
-            //console.log(`Insert #${seq} before #${i}`);
             tbody.insertBefore(pr, p);
             return;
         }
@@ -50,7 +67,7 @@ function insertProgramRow(tbody: HTMLTableSectionElement, pr: ProgramRowElement)
     tbody.appendChild(pr);
 }
 
-export function moveProgram(profile_id: number, f: number, t: number, send: boolean = false) {
+export function moveProgram(profile_id: number, f: number, t: number, send: boolean = false, animate: boolean = false) {
     const pt = profiles[profile_id];
     if (!pt) {
         console.log(`Profile #${profile_id} not found`);
@@ -58,6 +75,12 @@ export function moveProgram(profile_id: number, f: number, t: number, send: bool
     }
 
     const pr = pt.program_by_seq[f];
+    if (animate) {
+        const from_row = pt.program_by_seq[f];
+        const to_row = pt.program_by_seq[t];
+
+        animateRow(from_row, to_row);
+    }
 
     pt.program_by_seq.splice(f, 1);
     pt.program_by_seq.splice(t, 0, pr);
@@ -84,8 +107,6 @@ export function moveProgram(profile_id: number, f: number, t: number, send: bool
 }
 
 export function updateProgram(prd: ProgramDesc) {
-    //console.log('updateProgram: ' + String(prd.prog_id) + ' ' + prd.title);
-
     const pt = profiles[prd.profile_id];
     if (!pt) {
         console.log(`Profile #${prd.profile_id} not found`);
@@ -121,12 +142,12 @@ export function selectProgram(profile_id: number, prog_id: number) {
         if (pr) {
             pr.select_btn.checked = true;
 
-            if (pt.program_by_id[cur_prog_id]) {
-                pt.program_by_id[cur_prog_id].inactive();
+            if (pt.program_by_id[pt.cur_prog_id]) {
+                pt.program_by_id[pt.cur_prog_id].inactive();
             }
-            cur_prog_id = prog_id;
-            if (pt.program_by_id[cur_prog_id]) {
-                pt.program_by_id[cur_prog_id].active();
+            pt.cur_prog_id = prog_id;
+            if (pt.program_by_id[pt.cur_prog_id]) {
+                pt.program_by_id[pt.cur_prog_id].active();
             }
         }
     }
@@ -158,7 +179,7 @@ CS;${settings.channel_start};
             }
         }
 
-        content += `PC;${f};
+        content += `PC;${f};${pt.cur_prog_id};
 
 `;
     }
@@ -209,17 +230,17 @@ export function onUploadClick(e: MouseEvent) {
     uploadFile.click();
 }
 
+const prog_change_re = /^PC;(\d+);(\d+);/;
+const midi_channel_re = /^MC;(\d+);/;
+const prog_start_re = /^PS;(\d+);/;
+const chan_start_re = /^CS;(\d+);/;
+const device_title_re = /^DT;([^;]*);/;
+
 export async function processFileText(file: File): Promise<void> {
     try {
-        // Reads raw content into a string variable
         const textContent: string = await file.text();
 
-        // If processing JSON data:
-        if (file.type === "application/json") {
-            const parsedData: Record<string, unknown> = JSON.parse(textContent);
-            console.log("Parsed JSON:", parsedData);
-        } else if (file.type === "text/csv") {
-            console.log("CSV Text:", textContent.slice(0, 40));
+        if (file.type === "text/csv") {
             const lines = new Splitter(textContent);
             while (lines.next()) {
                 const prd = ProgramDesc.parseImportLine(lines.line);
@@ -233,9 +254,37 @@ export async function processFileText(file: File): Promise<void> {
                     sendProfile(prf);
                     continue;
                 }
+
+                let m = lines.line.match(prog_change_re);
+                if (m) {
+                    sendSelectProgram(Number(m[1]), Number(m[2]));
+                    continue;
+                }
+
+                m = lines.line.match(midi_channel_re);
+                if (m) {
+                    sendMIDIChannel(Number(m[1]));
+                    continue;
+                }
+
+                m = lines.line.match(prog_start_re);
+                if (m) {
+                    sendProgramStart(Number(m[1]));
+                    continue;
+                }
+
+                m = lines.line.match(chan_start_re);
+                if (m) {
+                    sendChannelStart(Number(m[1]));
+                    continue;
+                }
+
+                m = lines.line.match(device_title_re);
+                if (m) {
+                    sendDeviceTitle(m[1]);
+                    continue;
+                }
             }
-        } else {
-            console.log("Plain Text:", textContent);
         }
     } catch (error) {
         console.error("Error reading file:", error);
@@ -262,8 +311,6 @@ export function onUploadFileChange(e: Event) {
 function onProfileTitleUpdate(e: Event, pfd: ProfileDesc) {
     const ce = e as CustomEvent<string>;
 
-    console.log(`profileTitleUpdate: ${ce.detail}`);
-
     const pfd_clone = pfd.clone();
     pfd_clone.title = ce.detail;
 
@@ -273,16 +320,19 @@ function onProfileTitleUpdate(e: Event, pfd: ProfileDesc) {
 function onProfileChannelUpdate(e: Event, pfd: ProfileDesc) {
     const ce = e as CustomEvent<string>;
 
-    console.log(`profileChannelUpdate: ${ce.detail}`);
-
     let channel = Number(ce.detail) - settings.channel_start;
-    if (channel < 0) channel = 0;
-    if (channel > 15) channel = 15;
+    if (channel >= 0 && channel < 16) {
+        const pfd_clone = pfd.clone();
+        pfd_clone.channel = channel;
 
-    const pfd_clone = pfd.clone();
-    pfd_clone.channel = channel;
-
-    sendProfile(pfd_clone);
+        sendProfile(pfd_clone);
+    } else {
+        const cell = e.target as EditableCell;
+        if (cell) {
+            cell.feedbackTextContent = invalidChannelFeedback();
+        }
+        e.preventDefault();
+    }
 }
 
 function profileSettingsRow(id: number): string {
@@ -313,8 +363,13 @@ function profileSettingsRow(id: number): string {
                 <table id="profile-${id}-settings-table"
                        class="table table-dark table-hover">
                   <tbody>
-                    <tr><th>Title</th><td is="editable-cell" id="profile-${id}-title">${pt.pfd.title}</td></tr>
-                    <tr><th>Out Channel</th><td is="editable-cell" id="profile-${id}-channel">${pt.pfd.channel + settings.channel_start}</td></tr>
+                    <tr><th class="w10em">Title</th><td is="editable-cell" id="profile-${id}-title">${pt.pfd.title}</td></tr>
+                    <tr><th>Out Channel</th>
+                        <td is="editable-cell" id="profile-${id}-channel">
+                            <span class="editable-value">${pt.pfd.channel + settings.channel_start}</span>
+                            <div class="invalid-feedback">${invalidChannelFeedback()}</div>
+                        </td>
+                    </tr>
                     <tr><th>MIDI Forward</th><td><input type="checkbox" checked/></td></tr>
                   </tbody>
                 </table>
@@ -334,8 +389,6 @@ export function updateProfile(pfd: ProfileDesc) {
     const id = pfd.id;
     const title = pfd.title;
 
-    console.log(`profile ${id} ${title}`);
-
     let pt = profiles[id];
     if (pt) {
         pt.pfd.title = title;
@@ -345,13 +398,15 @@ export function updateProfile(pfd: ProfileDesc) {
         }
         const ptitle = document.querySelector(`#profile-${id}-title`) as EditableCell;
         if (ptitle) {
-            ptitle.textContent = title;
+            ptitle.value = title;
         }
+        pt.pfd.channel = pfd.channel;
         const pchannel = document.querySelector(`#profile-${id}-channel`) as EditableCell;
         if (pchannel) {
-            pchannel.textContent = `${pfd.channel + settings.channel_start}`;
+            pchannel.value = `${pfd.channel + settings.channel_start}`;
         }
-        // TODO: update profile settings: channel, port_mask etc.
+
+        // TODO: update profile settings: port_mask etc.
         return;
     }
 
@@ -383,19 +438,22 @@ export function updateProfile(pfd: ProfileDesc) {
                 aria-labelledby="profile-${id}-tab">
               ${settings_row_html}
 
-              <table id="profile-${id}-program-table"
-                     class="table table-dark table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col" class="w5em">v</th>
-                    <th scope="col" class="w5em">#</th>
-                    ${extraColumn}
-                    <th scope="col">Title</th>
-                  </tr>
-                </thead>
-                <tbody id="profile-${id}-program-tbody">
-                </tbody>
-              </table>
+              <div class="table-scrollable" id="profile-${id}-program-table-container">
+                <table id="profile-${id}-program-table"
+                       class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="w5em">v</th>
+                      <th scope="col" class="w5em">#</th>
+                      ${extraColumn}
+                      <th scope="col">Title</th>
+                    </tr>
+                  </thead>
+                  <tbody id="profile-${id}-program-tbody">
+                  </tbody>
+                </table>
+              </div>
+
             </div>`;
 
         profileTabContent.insertAdjacentHTML('beforeend', content_html);
@@ -412,13 +470,32 @@ export function updateProfile(pfd: ProfileDesc) {
                 onProfileChannelUpdate(e, pfd);
             });
 
+        const ptablecontainer = document.querySelector(`#profile-${id}-program-table-container`) as HTMLDivElement;
         const tbody = document.querySelector(`#profile-${id}-program-tbody`) as HTMLTableSectionElement;
         new Sortable(tbody, {
             animation: 150,
+            scroll: ptablecontainer,
+            scrollSensitivity: 50,
+            // forceFallback: true,
             onEnd: (e) => {
-                // console.log(e.oldIndex, ' => ', e.newIndex);
+                const de = (e as any).originalEvent?.dataTransfer?.dropEffect;
+                const oldIndex = Number(e.oldIndex);
+                const newIndex = Number(e.newIndex);
 
-                moveProgram(id, Number(e.oldIndex), Number(e.newIndex), true);
-            } });
+                if (newIndex == oldIndex) {
+                    return;
+                }
+
+                if (de == 'move') {
+                    moveProgram(id, oldIndex, newIndex, true, false);
+                }
+                else
+                {
+                    const tr = tbody.children[newIndex];
+                    tr.remove();
+                    tbody.insertBefore(tr, tbody.children[oldIndex]);
+                }
+            }
+        });
     }
 }

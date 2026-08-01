@@ -1,8 +1,5 @@
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
 import { setupConnect, sendDeviceTitle, sendMIDIChannel,
          sendProgramStart, sendChannelStart } from './connect.ts'
 import { onDownloadClick, onUploadClick, onUploadFileChange, processFileText } from './progtable.ts'
@@ -10,6 +7,10 @@ import { setupLcd, printLcd } from './vrEmuLcd.ts'
 import 'bootstrap';
 import { EditableCell } from './editable_cell.ts';
 import { settings } from './settings.ts'
+
+export function invalidChannelFeedback() {
+    return `Channel expected to be ${settings.channel_start}-${settings.channel_start + 15}`;
+}
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary">
@@ -50,7 +51,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <table id="device-settings-table" class="table table-dark table-hover">
               <tbody>
                 <tr><th>Title</th><td is="editable-cell" id="device-title">MIDI Controller</td></tr>
-                <tr><th>In Channel</th><td is="editable-cell" id="device-channel" input-type="channel">1</td></tr>
+                <tr><th>In Channel</th>
+                    <td is="editable-cell" id="device-channel" input-type="number">
+                        <span class="editable-value">${settings.channel + settings.channel_start}</span>
+                        <div class="invalid-feedback">${invalidChannelFeedback()}</div>
+                    </td>
+                </tr>
                 <tr><th>MIDI Forward</th><td><input type="checkbox" checked/></td></tr>
                 <tr><th>Channel Start</th><td>
                     <select class="form-select form-select-sm" id="device-channel-start">
@@ -83,45 +89,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </nav>
   <div class="tab-content" id="profile-tabContent"></div>
 </section>
-
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank" id="download-link-">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Download
-        </a>
-      </li>
-      <li>
-        <input type="file" id="upload-file" name="fileUpload">
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
-
-<div class="ticks"></div>
-<section id="spacer"></section>
 `
 
 setupConnect(document.querySelector<HTMLButtonElement>('#connect-button')!)
@@ -146,8 +113,21 @@ const dchanstart = document.querySelector(`#device-channel-start`) as HTMLSelect
 const dropZone = document.querySelector('#app') as HTMLElement | null;
 if (dropZone) {
     dropZone.addEventListener('dragover', (event: DragEvent) => {
-        event.preventDefault();
-        dropZone.classList.add('bg-dark-subtle');
+        if (!event.dataTransfer) return;
+
+        const items = event.dataTransfer.items;
+
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+
+            if (item.kind == 'file' && item.type == 'text/csv') {
+                event.preventDefault();
+                dropZone.classList.add('bg-dark-subtle');
+                return;
+            }
+        }
+
+        event.dataTransfer.dropEffect = "none";
     });
 
     dropZone.addEventListener('dragleave', (event: DragEvent) => {
@@ -169,12 +149,12 @@ if (dropZone) {
 
 export function updateDeviceTitle(t: string) {
     settings.title = t;
-    dtitle.textContent = t;
+    dtitle.value = t;
 }
 
 export function updateMIDIChannel(c: number) {
     settings.channel = c;
-    dchannel.textContent = `${settings.channel + settings.channel_start}`;
+    dchannel.value = `${settings.channel + settings.channel_start}`;
 }
 
 export function updateProgramStart(start: number) {
@@ -210,10 +190,15 @@ function onDeviceChannelUpdate(e: Event) {
     console.log(`deviceChannelUpdate: ${ce.detail}`);
 
     let channel = Number(ce.detail) - settings.channel_start;
-    if (channel < 0) channel = 0;
-    if (channel > 15) channel = 15;
-
-    sendMIDIChannel(channel);
+    if (channel >= 0 && channel < 16) {
+        sendMIDIChannel(channel);
+    } else {
+        const cell = e.target as EditableCell;
+        if (cell) {
+            cell.feedbackTextContent = invalidChannelFeedback();
+        }
+        e.preventDefault();
+    }
 }
 dchannel.addEventListener('textUpdate', onDeviceChannelUpdate);
 

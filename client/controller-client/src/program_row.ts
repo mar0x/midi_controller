@@ -27,10 +27,11 @@ function onSequenceUpdate(e: Event) {
     let seq_id = Number(ce.detail) - 1;
     const prd = pr.prd;
 
-    if (seq_id < 0) seq_id = 0;
-    if (seq_id >= 200) seq_id = 199;
-
-    moveProgram(prd.profile_id, prd.seq_id, seq_id, true);
+    if (seq_id >= 0 && seq_id < 200) {
+        moveProgram(prd.profile_id, prd.seq_id, seq_id, true, true);
+    } else {
+        e.preventDefault();
+    }
 }
 
 function onTitleUpdate(e: Event) {
@@ -61,7 +62,8 @@ export class ProgramRowElement extends HTMLTableRowElement {
         const sequence_cell = document.createElement('td', { is: 'editable-cell' }) as EditableCell;
         if (sequence_cell) {
             this.sequence_cell = sequence_cell;
-            sequence_cell.textContent = String(prd.seq_id + 1);
+            sequence_cell.value = String(prd.seq_id + 1);
+            sequence_cell.setAttribute('input-type', 'number');
             this.appendChild(sequence_cell);
             sequence_cell.addEventListener('textUpdate', onSequenceUpdate);
         }
@@ -86,23 +88,27 @@ export class ProgramRowElement extends HTMLTableRowElement {
 
         const ptitle = document.createElement('td', { is: 'editable-cell' }) as EditableCell;
         if (ptitle) {
-            ptitle.textContent = prd.title;
+            ptitle.value = prd.title;
             this.appendChild(ptitle);
 
             this.ptitle = ptitle;
             ptitle.addEventListener('textUpdate', onTitleUpdate);
         }
+
+        this.addEventListener('dragend', (e: DragEvent) => {
+            console.log(`dragend: ${e.dataTransfer?.dropEffect}`, e);
+        });
     }
 
     set_title(title: string) {
         this.prd.title = title;
-        this.ptitle.textContent = title;
+        this.ptitle.value = title;
     }
 
     set_seq(seq_id: number) {
         if (this.prd.seq_id != seq_id) {
             this.prd.seq_id = seq_id;
-            this.sequence_cell.textContent = String(seq_id + 1);
+            this.sequence_cell.value = String(seq_id + 1);
         }
     }
 

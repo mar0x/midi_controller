@@ -54,6 +54,12 @@ body {
   margin: 0;
 }
 
+/*
+tr {
+  will-change: transform;
+}
+*/
+
 h1,
 h2 {
   font-family: var(--heading);
@@ -106,6 +112,21 @@ code {
 
 .w10em {
   width: 10em;
+}
+
+.w15em {
+  width: 15em;
+}
+
+.table-scrollable {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table-scrollable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .counter,

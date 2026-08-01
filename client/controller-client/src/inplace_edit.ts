@@ -1,3 +1,4 @@
+import { EditableCell } from './editable_cell.ts'
 
 function onInputKeydown(e: KeyboardEvent) {
     const input = e.target as InplaceEdit;
@@ -38,11 +39,9 @@ export class InplaceEdit extends HTMLInputElement {
 
         this.removed = true;
 
-        console.log('cancel');
-
-        const pt = this.parentElement;
+        const pt = this.parentElement as EditableCell;
         if (pt) {
-            pt.textContent = this.orig_value;
+            pt.value = this.orig_value;
 
             this.remove();
         }
@@ -53,20 +52,25 @@ export class InplaceEdit extends HTMLInputElement {
 
         this.removed = true;
 
-        console.log('submit');
-
-        const target = this.parentElement;
+        const target = this.parentElement as EditableCell;
 
         if (target) {
             const e = new CustomEvent<string>('textUpdate', {
                 detail: this.value,
                 bubbles: true,
+                cancelable: true,
             });
 
-            target.textContent = this.value;
             target.dispatchEvent(e);
 
-            this.remove();
+            if (e.defaultPrevented) {
+                this.classList.add("is-invalid");
+                this.removed = false;
+                // target.value = this.orig_value;
+            } else {
+                target.value = e.detail;
+                this.remove();
+            }
         }
     }
 }
