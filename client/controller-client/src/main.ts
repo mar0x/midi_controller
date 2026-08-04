@@ -7,6 +7,7 @@ import { setupLcd, printLcd } from './vrEmuLcd.ts'
 import 'bootstrap';
 import { EditableCell } from './editable_cell.ts';
 import { settings } from './settings.ts'
+import { parseIntelHex } from './intel_hex.js'
 
 export function invalidChannelFeedback() {
     return `Channel expected to be ${settings.channel_start}-${settings.channel_start + 15}`;
@@ -124,6 +125,10 @@ if (dropZone) {
                 event.preventDefault();
                 dropZone.classList.add('bg-dark-subtle');
                 return;
+            } else if (item.kind == 'file' && item.type == 'text/x-hex') {
+                event.preventDefault();
+                dropZone.classList.add('bg-dark-subtle');
+                return;
             }
         }
 
@@ -135,14 +140,20 @@ if (dropZone) {
         dropZone.classList.remove('bg-dark-subtle');
     });
 
-    dropZone.addEventListener('drop', (event: DragEvent) => {
+    dropZone.addEventListener('drop', async (event: DragEvent) => {
         event.preventDefault();
         dropZone.classList.remove('bg-dark-subtle');
 
         const files: FileList | undefined = event.dataTransfer?.files;
 
         if (files && files.length > 0) {
-            processFileText(files[0]);
+            if (files[0].type == "text/csv") {
+                processFileText(files[0]);
+            } else if (files[0].type == "text/x-hex") {
+                const textContent: string = await files[0].text();
+                const hex = parseIntelHex(textContent);
+                console.log("hex: ", hex);
+            }
         }
     });
 }
