@@ -1,13 +1,14 @@
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { setupConnect, sendDeviceTitle, sendMIDIChannel,
-         sendProgramStart, sendChannelStart } from './connect.ts'
-import { onDownloadClick, onUploadClick, onUploadFileChange, processFileText } from './progtable.ts'
+         sendProgramStart, sendChannelStart, flashHex } from './connect.ts'
+import { onDownloadClick, onUploadClick, processFileText } from './progtable.ts'
+import type { HTMLUploadButtonElement } from './progtable.ts'
 import { setupLcd, printLcd } from './vrEmuLcd.ts'
 import 'bootstrap';
 import { EditableCell } from './editable_cell.ts';
 import { settings } from './settings.ts'
-import { parseIntelHex } from './intel_hex.js'
+import { parseIntelHex } from './intel_hex.ts'
 
 export function invalidChannelFeedback() {
     return `Channel expected to be ${settings.channel_start}-${settings.channel_start + 15}`;
@@ -26,7 +27,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <button id="demo-button" type="button" class="btn btn-primary me-1" disabled>Demo</button>
         <button id="connect-button" type="button" class="btn btn-primary me-1">Connect</button>
         <a class="btn btn-primary me-1" target="_blank" href="#" id="download-link">Download</a>
-        <button id="upload-button" type="button" class="btn btn-primary">Upload</a>
+        <button id="upload-button" type="button" class="btn btn-primary me-1">Upload</a>
+        <button id="update-button" type="button" class="btn btn-primary me-1">Update</a>
       </div>
     </div>
   </div>
@@ -100,8 +102,8 @@ downloadLink?.addEventListener('click', onDownloadClick);
 const uploadButton = document.querySelector('#upload-button') as HTMLButtonElement;
 uploadButton?.addEventListener('click', onUploadClick);
 
-const uploadFile = document.querySelector('#upload-file') as HTMLInputElement;
-uploadFile?.addEventListener('change', onUploadFileChange);
+const updateButton = document.querySelector('#update-button') as HTMLButtonElement;
+updateButton?.addEventListener('click', onUpdateClick);
 
 setupLcd();
 printLcd("Disconnected ...", "");
@@ -152,10 +154,57 @@ if (dropZone) {
             } else if (files[0].type == "text/x-hex") {
                 const textContent: string = await files[0].text();
                 const hex = parseIntelHex(textContent);
-                console.log("hex: ", hex);
+
+                await flashHex(hex);
             }
         }
     });
+}
+
+let hex: any = undefined;
+
+async function onUpdateClick(e: MouseEvent) {
+    const updateButton = e.target as HTMLUploadButtonElement;
+
+    if (!updateButton) return;
+
+    if (hex) {
+        await flashHex(hex);
+        return;
+    }
+
+    let updateFile = updateButton.fileInputElement;
+    if (!updateFile) {
+        updateFile = document.createElement('input') as HTMLInputElement;
+        updateFile.type = 'file';
+        updateFile.accept = 'text/x-hex';
+        updateFile.multiple = false;
+        updateFile.addEventListener('change', onUpdateFileChange);
+
+        updateButton.fileInputElement = updateFile;
+    }
+
+    updateFile.click();
+}
+
+async function onUpdateFileChange(e: Event) {
+    const updateFile = e.target as HTMLInputElement;
+
+    if (!updateFile || !updateFile.files || updateFile.files.length === 0) {
+        console.warn("No file selected.");
+        return;
+    }
+
+    const selectedFile: File = updateFile.files[0];
+
+    console.log(`File Name: ${selectedFile.name}`);
+    console.log(`File Size: ${selectedFile.size} bytes`);
+    console.log(`File Type: ${selectedFile.type}`);
+
+    const textContent: string = await selectedFile.text();
+    hex = parseIntelHex(textContent);
+
+    await flashHex(hex);
 }
 
 export function updateDeviceTitle(t: string) {

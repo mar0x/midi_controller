@@ -6,6 +6,7 @@ import { Splitter } from './splitter.ts'
 import { ProgramDesc } from './program.ts'
 import { ProfileDesc } from './profile.ts'
 import { PortQueue } from './port_queue.ts'
+import { Flasher } from './avr109.ts'
 
 let connect_btn: HTMLButtonElement | undefined;
 let port: SerialPort | undefined;
@@ -228,5 +229,45 @@ export function setupConnect(element: HTMLButtonElement) {
     connect_btn = element;
     element.addEventListener('click', connect);
     element.textContent = `Connect`;
+}
+
+export async function flashHex(hex: any) {
+    console.log("hex: ", hex);
+
+    await disconnect();
+
+    let p: SerialPort | undefined;
+
+    try {
+        p = await navigator.serial.requestPort(
+            { filters: [{ usbVendorId: 0x2341 }] });
+        const info = p.getInfo();
+        console.log('port #1: ', p, info);
+        await p.open({ baudRate: 1200 })
+    } catch (err: unknown) {
+        return;
+    }
+
+    await p.close();
+
+    try {
+        p = await navigator.serial.requestPort(
+            { filters: [{ usbProductId: 0x37, usbVendorId: 0x2341 }] });
+        const info = p.getInfo();
+        console.log('port #2: ', p, info);
+        await p.open({ baudRate: 57600 })
+    } catch (err: unknown) {
+        return;
+    }
+
+    const f = new Flasher(p);
+    await f.prepare();
+    console.log('prepare Ok');
+    await f.program(hex.data);
+    console.log('program Ok');
+    await f.verify(hex.data);
+    console.log('verify Ok');
+
+    await p.close();
 }
 

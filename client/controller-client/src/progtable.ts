@@ -207,7 +207,7 @@ CS;${settings.channel_start};
   }
 }
 
-interface HTMLUploadButtonElement extends HTMLButtonElement {
+export interface HTMLUploadButtonElement extends HTMLButtonElement {
   fileInputElement: HTMLInputElement;
 }
 
