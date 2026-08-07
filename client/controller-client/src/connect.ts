@@ -198,7 +198,8 @@ async function connect(e: MouseEvent) {
     if (!port) {
         btn.textContent = `Connecting ...`
         try {
-            port = await navigator.serial.requestPort({});
+            port = await navigator.serial.requestPort(
+                  { filters: [{ usbVendorId: 0x2341 }] });
             await port.open({ baudRate: 115200 })
         } catch (err: unknown) {
             port = undefined;
@@ -245,6 +246,7 @@ export async function flashHex(hex: any) {
         console.log('port #1: ', p, info);
         await p.open({ baudRate: 1200 })
     } catch (err: unknown) {
+        console.log("Error: ", err);
         return;
     }
 
@@ -257,6 +259,7 @@ export async function flashHex(hex: any) {
         console.log('port #2: ', p, info);
         await p.open({ baudRate: 57600 })
     } catch (err: unknown) {
+        console.log("Error: ", err);
         return;
     }
 
@@ -267,6 +270,8 @@ export async function flashHex(hex: any) {
     console.log('program Ok');
     await f.verify(hex.data);
     console.log('verify Ok');
+    await f.finish();
+    console.log('Ok');
 
     await p.close();
 }

@@ -113,6 +113,8 @@ const dchannel = document.querySelector(`#device-channel`) as EditableCell;
 const dprogstart = document.querySelector(`#device-program-start`) as HTMLSelectElement;
 const dchanstart = document.querySelector(`#device-channel-start`) as HTMLSelectElement;
 
+let hex: any = undefined;
+
 const dropZone = document.querySelector('#app') as HTMLElement | null;
 if (dropZone) {
     dropZone.addEventListener('dragover', (event: DragEvent) => {
@@ -153,15 +155,13 @@ if (dropZone) {
                 processFileText(files[0]);
             } else if (files[0].type == "text/x-hex") {
                 const textContent: string = await files[0].text();
-                const hex = parseIntelHex(textContent);
+                hex = parseIntelHex(textContent);
 
                 await flashHex(hex);
             }
         }
     });
 }
-
-let hex: any = undefined;
 
 async function onUpdateClick(e: MouseEvent) {
     const updateButton = e.target as HTMLUploadButtonElement;

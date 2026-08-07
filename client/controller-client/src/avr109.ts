@@ -2,7 +2,9 @@
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-const debug = false;
+const DEBUG_LEVEL = 7;
+const INFO_LEVEL = 4;
+const log_level = INFO_LEVEL;
 
 function cmd(value: (string | number)[]): Uint8Array {
       const a = new Uint8Array(value.length);
@@ -10,9 +12,6 @@ function cmd(value: (string | number)[]): Uint8Array {
       for (let i = 0; i < value.length; i++) {
           if (typeof value[i] === 'string') {
               const s: string = value[i] as string;
-              if (debug && i == 0) {
-                  console.log(`cmd: ${value}`);
-              }
               a[i] = s.charCodeAt(0);
           }
           if (typeof value[i] == 'number') {
@@ -26,7 +25,7 @@ function cmd(value: (string | number)[]): Uint8Array {
 export class Flasher {
     options: any = {};
     sp: SerialPort;
-    signature: string = "CATERIN";
+    signature: string;
     flashChunkSize: number = 0;
 
     constructor(sp: SerialPort, options: any = {}) {
@@ -50,7 +49,7 @@ export class Flasher {
             reader.releaseLock();
 
             if (res && res.value) {
-                if (debug) {
+                if (log_level >= DEBUG_LEVEL) {
                     console.log('read: ', res.value);
                 }
                 return res.value;
@@ -62,9 +61,6 @@ export class Flasher {
 
     public async c(value: string | Uint8Array | (string | number)[], expect: number = 1): Promise<Uint8Array> {
         if (typeof value === 'string') {
-            if (debug) {
-                console.log(`cmd: ${value}`);
-            }
             value = encoder.encode(value);
         }
 
@@ -72,8 +68,9 @@ export class Flasher {
             value = cmd(value);
         }
 
-        if (debug) {
-            console.log('write: ', value);
+        if (log_level >= DEBUG_LEVEL) {
+            const v = decoder.decode(value.slice(0, 1));
+            console.log(`cmd: ${v}, write: `, value);
         }
 
         await this.write(value);
@@ -102,28 +99,58 @@ export class Flasher {
     }
 
     public async prepare(): Promise<void> {
-        let s = decoder.decode(await this.c('S'));
+        let s = decoder.decode(await this.c('S', 7));
+        if (log_level >= INFO_LEVEL) {
+            console.log(`Signature = ${s}`);
+        }
         if (s !== this.signature) {
             throw new Error(`Invalid device signature; expecting: ${this.signature}, received: ${s}`);
         }
-        await this.c('V');
-        await this.c('v');
-        await this.c('p');
-        await this.c('a');
+
+        s = decoder.decode(await this.c('V', 2));
+        if (log_level >= INFO_LEVEL) {
+            console.log(`Software Version = ${s}`);
+        }
+
+        s = decoder.decode(await this.c('v'));
+        if (log_level >= INFO_LEVEL) {
+            console.log(`Hardware Version = ${s}`);
+        }
+
+        s = decoder.decode(await this.c('p'));
+        if (log_level >= INFO_LEVEL) {
+            console.log(`Programmer Type = ${s}`);
+        }
+        if (s !== 'S') {
+            throw new Error(`Invalid programmer type; expecting: S, received: ${s}`);
+        }
+
+        s = decoder.decode(await this.c('a'));
+        if (log_level >= INFO_LEVEL) {
+            console.log(`Auto Increment = ${s}`);
+        }
+        if (s !== 'Y') {
+            throw new Error(`Auto Increment is unsupported; expecting: Y, received: ${s}`);
+        }
 
         let b = await this.c('b', 3);
         if (b[0] != 'Y'.charCodeAt(0)) {
             throw new Error('Buffered memory access not supported.');
         }
         this.flashChunkSize = (b[1] << 8) | b[2];
-        if (debug) {
+        if (log_level >= INFO_LEVEL) {
             console.log(`flashChunkSize = ${this.flashChunkSize}`);
         }
 
         await this.c('t');
-        await this.c('ID');
+        await this.c('TD');
         await this.c('P');
 
+        b = await this.c('s', 3);
+        if (log_level >= INFO_LEVEL) {
+            console.log('Device signature: ', b);
+        }
+/*
         await this.c('F');
         await this.c('F');
         await this.c('F');
@@ -147,6 +174,7 @@ export class Flasher {
 
         await this.c(['A', 0x03, 0xff]);
         await this.c(['g', 0x00, 0x01, 'E']);
+*/
     }
 
     public async erase(): Promise<void> {
@@ -172,15 +200,20 @@ export class Flasher {
 
         for (let i = 0; i < data.length; i += this.flashChunkSize) {
             const chunk = data.slice(i, i + this.flashChunkSize);
-            const c = ['g', (chunk.length >> 8) & 0xFF, chunk.length & 0xFF, 'F'];
-
-            const vb = await this.c(c, chunk.length);
+            // const c = ['g', (chunk.length >> 8) & 0xFF, chunk.length & 0xFF, 'F'];
+            const c = ['g', (this.flashChunkSize >> 8) & 0xFF, this.flashChunkSize & 0xFF, 'F'];
+            const vb = await this.c(c, this.flashChunkSize);
             for (let n = 0; n < chunk.length; n++) {
                 if (vb[n] != chunk[n]) {
                     throw new Error('Firmware on the device does not match local data');
                 }
             }
         }
+    }
+
+    public async finish(): Promise<void> {
+        await this.c('L');
+        await this.c('E');
     }
 
     public async fuseCheck(): Promise<void> {
