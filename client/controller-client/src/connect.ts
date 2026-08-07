@@ -266,10 +266,14 @@ export async function flashHex(hex: any) {
     const f = new Flasher(p);
     await f.prepare();
     console.log('prepare Ok');
-    await f.program(hex.data);
-    console.log('program Ok');
-    await f.verify(hex.data);
-    console.log('verify Ok');
+
+    await f.readee();
+    console.log('readee Ok');
+
+    //await f.program(hex.data);
+    //console.log('program Ok');
+    //await f.verify(hex.data);
+    //console.log('verify Ok');
     await f.finish();
     console.log('Ok');
 

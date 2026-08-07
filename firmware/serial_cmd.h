@@ -41,7 +41,7 @@ enum {
     SCMD_MIDI_DUMP_RECV,     // MDR
 
     SCMD_BTN_PRESS,          // B b
-
+    SCMD_BTN_HOLD,           // H b
 };
 
 struct serial_cmd_t {

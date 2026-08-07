@@ -195,6 +195,15 @@ export class Flasher {
         }
     }
 
+    public async readee(): Promise<void> {
+        await this.c(['A', 0x00, 0x00]);
+
+        const c = ['g', (this.flashChunkSize >> 8) & 0xFF, this.flashChunkSize & 0xFF, 'E'];
+        const vb = await this.c(c, this.flashChunkSize);
+
+        console.log('readee: ', vb);
+    }
+
     public async verify(data: Uint8Array): Promise<void> {
         await this.c(['A', 0x00, 0x00]);
 

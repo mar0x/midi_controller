@@ -36,6 +36,8 @@ namespace midi_controller {
 
 void encoder::setup() {
     enc::setup();
+    enc_a_pin::pullup();
+    enc_b_pin::pullup();
 }
 
 void encoder::update() {

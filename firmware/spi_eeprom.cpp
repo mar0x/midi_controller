@@ -60,6 +60,10 @@ void spi_eeprom::setup() {
     transfer_scope::setup();
 }
 
+bool spi_eeprom::ready() {
+    return (status() & RDY) == 0;
+}
+
 void spi_eeprom::get(addr_type addr, uint8_t *b, size_type size) {
     while (size) {
         addr_type chunk_page = addr & PAGE_MASK;

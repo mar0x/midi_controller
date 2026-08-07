@@ -69,6 +69,13 @@ void keyboard::setup() {
     down_delayed::setup();
     left_delayed::setup();
     right_delayed::setup();
+
+    ok_btn_pin::pullup();
+
+    up_btn_pin::pullup();
+    down_btn_pin::pullup();
+    left_btn_pin::pullup();
+    right_btn_pin::pullup();
 }
 
 void keyboard::update() {

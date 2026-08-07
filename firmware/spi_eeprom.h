@@ -9,6 +9,7 @@ struct spi_eeprom {
     using size_type = uint16_t;
 
     static void setup();
+    static bool ready();
     static constexpr size_type length() { return 0x8000; }
 
     static void get(addr_type addr, uint8_t *b, size_type size);

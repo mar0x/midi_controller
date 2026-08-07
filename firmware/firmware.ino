@@ -567,6 +567,15 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
 
         return;
     }
+
+    if (cmd.command() == SCMD_BTN_HOLD) {
+        set_mode(MODE_SETTINGS_FACTORY_RESET);
+        current_mode()->on_ok_hold();
+        if (output_reply) {
+            serial_reply(true, cmd);
+        }
+        return;
+    }
 }
 
 serial_cmd_t serial_cmd;

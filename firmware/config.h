@@ -3,8 +3,8 @@
 namespace midi_controller {
 
 enum {
-    MAX_PROFILE = 3,
-    MAX_PROGRAM = 200,
+    MAX_PROFILE = 2,
+    MAX_PROGRAM = 10,
 };
 
 }

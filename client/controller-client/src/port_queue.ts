@@ -39,7 +39,7 @@ export class PortQueue {
     onRead(s: string) {
         if (this.sent_queue.length > 0) {
             const first = this.sent_queue[0];
-            if (s.startsWith(first) || s == "err:" + first) {
+            if (s.startsWith(first) || s.startsWith("err:" + first)) {
                 this.sent_queue.shift();
                 this.sent_queue_size -= encoder.encode(first + "\n").length;
                 this.resolve();

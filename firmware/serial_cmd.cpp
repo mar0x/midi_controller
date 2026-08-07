@@ -95,7 +95,8 @@ serial_cmd_t::parse() {
         case 1:
             if (b[0] == 'V') { command_ = SCMD_VERSION; }
             //if (b[0] == 'E') { command_ = SCMD_ECHO; }
-            //if (b[0] == 'B') { command_ = SCMD_BTN_PRESS; }
+            if (b[0] == 'B') { command_ = SCMD_BTN_PRESS; }
+            if (b[0] == 'H') { command_ = SCMD_BTN_HOLD; }
             if (b[0] == 'D') { command_ = SCMD_DISPLAY_DUMP; }
             if (b[0] == '?') { command_ = SCMD_HELP; }
             break;

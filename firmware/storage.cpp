@@ -23,12 +23,16 @@ enum { SETTINGS_START = sizeof(eemagic) };
 using settings_storage = eeprom;
 
 enum {
-    PROFILE_START = 32,
+    // PROFILE_START = 32,
+    PROFILE_START = SETTINGS_START + sizeof(settings_t) + 32,
     PROGRAM_START = PROFILE_START + MAX_PROFILE * (sizeof(profile_t) + sizeof(program_seq_t)),
 };
 
-using program_storage = spi_eeprom;
-using profile_storage = spi_eeprom;
+//using profile_storage = spi_eeprom;
+using profile_storage = eeprom;
+
+using program_storage = profile_storage;
+using factory_storage = profile_storage;
 
 namespace {
 
@@ -90,8 +94,9 @@ void storage::reset() {
     settings_t settings;
     settings.reset();
     write(settings);
-
+/*
     program_storage::put(0, eemagic);
+*/
 
     profile_t f;
     f.reset();
@@ -132,10 +137,11 @@ void storage::reset() {
         }
     }
 
+/*
     uint16_t addr = get_factory_data_addr();
     uint16_t len;
 
-    spi_eeprom::get(addr, len);
+    factory_storage::get(addr, len);
 
     addr += sizeof(len);
 
@@ -143,7 +149,7 @@ void storage::reset() {
 
     while (len) {
         uint8_t c;
-        spi_eeprom::get(addr, c);
+        factory_storage::get(addr, c);
         cmd.read(c);
 
         if (cmd) {
@@ -155,6 +161,7 @@ void storage::reset() {
         addr += 1;
         len -= 1;
     }
+*/
 }
 
 void storage::read(settings_t &v) {
