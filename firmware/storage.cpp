@@ -23,13 +23,19 @@ enum { SETTINGS_START = sizeof(eemagic) };
 using settings_storage = eeprom;
 
 enum {
-    // PROFILE_START = 32,
+#if HW0
     PROFILE_START = SETTINGS_START + sizeof(settings_t) + 32,
+#else
+    PROFILE_START = 32,
+#endif
     PROGRAM_START = PROFILE_START + MAX_PROFILE * (sizeof(profile_t) + sizeof(program_seq_t)),
 };
 
-//using profile_storage = spi_eeprom;
+#if HW0
 using profile_storage = eeprom;
+#else
+using profile_storage = spi_eeprom;
+#endif
 
 using program_storage = profile_storage;
 using factory_storage = profile_storage;
@@ -137,7 +143,7 @@ void storage::reset() {
         }
     }
 
-/*
+#if !HW0
     uint16_t addr = get_factory_data_addr();
     uint16_t len;
 
@@ -161,7 +167,7 @@ void storage::reset() {
         addr += 1;
         len -= 1;
     }
-*/
+#endif
 }
 
 void storage::read(settings_t &v) {

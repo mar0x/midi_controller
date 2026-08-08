@@ -21,6 +21,7 @@ enum {
     SCMD_FACTORY_DATA,       // FD l
 
     SCMD_SERIAL_NUMBER,      // SN
+    SCMD_FIRMWARE,           // FW
     SCMD_HARDWARE,           // HW
     SCMD_VERSION,            // V
     SCMD_HELP,               // ?

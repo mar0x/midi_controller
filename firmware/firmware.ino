@@ -22,6 +22,8 @@
 #include "led.h"
 #include "screen.h"
 
+#include "version.h"
+
 using namespace midi_controller;
 
 namespace midi_controller {
@@ -289,6 +291,13 @@ void serial_print(const char *v) {
     Serial.print("\"");
 }
 
+template<typename T>
+void serial_print(const prog_var_t<T> v) {
+    T tmp;
+    v.get(tmp);
+    serial_print(tmp);
+}
+
 template<typename T, typename ...Args>
 void serial_print(const T& v, Args... args) {
     serial_print(v);
@@ -466,7 +475,8 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
         }
 
         if (output_reply) {
-            serial_reply(true, cmd, f, pf.title(), pf.channel, pf.port_mask);
+            // serial_reply(true, cmd, f, pf.title(), pf.channel, pf.port_mask);
+            serial_reply(true, cmd, f, pf.title(), pf.channel, pf.port_mask, (uint8_t) MAX_PROGRAM);
         }
 
         return;
@@ -573,6 +583,16 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
         current_mode()->on_ok_hold();
         if (output_reply) {
             serial_reply(true, cmd);
+        }
+        return;
+    }
+
+    if (cmd.command() == SCMD_VERSION) {
+        if (output_reply) {
+            serial_reply(true, cmd,
+                version_t::build_date(), version_t::build_time(),
+                version_t::fw_version(), version_t::hw_version(),
+                version_t::serial_no());
         }
         return;
     }
