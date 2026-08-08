@@ -60,12 +60,15 @@ export class PortQueue {
             while (this.connected &&
                    this.sent_queue_size <= window_size &&
                    this.queue.length > 0) {
-                const line = this.queue[0];
+                const line = this.queue.shift();
                 if (!line) {
                     continue;
                 }
 
                 const b = encoder.encode(line + "\n");
+
+                this.sent_queue.push(line);
+                this.sent_queue_size += b.length;
 
                 try {
                     const writer = port.writable.getWriter();
@@ -76,13 +79,14 @@ export class PortQueue {
                         console.error(err.stack);
                     }
                     console.log(`failed to send ${line}`);
+
+                    this.queue.splice(0, 0, line);
+                    this.sent_queue.pop();
+                    this.sent_queue_size -= b.length;
+
                     break;
                 }
 
-                this.queue.shift();
-
-                this.sent_queue.push(line);
-                this.sent_queue_size += b.length;
             }
         }
     }
