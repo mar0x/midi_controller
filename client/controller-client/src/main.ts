@@ -28,7 +28,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <button id="connect-button" type="button" class="btn btn-primary me-1">Connect</button>
         <a class="btn btn-primary me-1" target="_blank" href="#" id="download-link">Download</a>
         <button id="upload-button" type="button" class="btn btn-primary me-1">Upload</a>
-        <button id="update-button" type="button" class="btn btn-primary me-1">Update</a>
+        <button id="update-button" type="button" class="btn btn-warning me-1" disabled>Update Firmware</a>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
             <table id="device-settings-table" class="table table-dark table-hover">
               <tbody>
-                <tr><th>Title</th><td is="editable-cell" id="device-title">MIDI Controller</td></tr>
+                <tr><th class="w15em">Title</th><td is="editable-cell" id="device-title">MIDI Controller</td></tr>
                 <tr><th>In Channel</th>
                     <td is="editable-cell" id="device-channel" input-type="number">
                         <span class="editable-value">${settings.channel + settings.channel_start}</span>
@@ -73,6 +73,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                         <option value="1" selected>1</option>
                     </select>
                 </td></tr>
+                <tr><th>Firmware Version</th><td id="device-fw">0</td></tr>
+                <tr><th>Hardware Version</th><td id="device-hw">0</td></tr>
               </tbody>
             </table>
 
@@ -112,6 +114,8 @@ const dtitle = document.querySelector(`#device-title`) as EditableCell;
 const dchannel = document.querySelector(`#device-channel`) as EditableCell;
 const dprogstart = document.querySelector(`#device-program-start`) as HTMLSelectElement;
 const dchanstart = document.querySelector(`#device-channel-start`) as HTMLSelectElement;
+const dfw_version = document.querySelector(`#device-fw`) as HTMLTableCellElement;;
+const dhw_version = document.querySelector(`#device-hw`) as HTMLTableCellElement;;
 
 let hex: any = undefined;
 
@@ -158,6 +162,8 @@ if (dropZone) {
                 hex = parseIntelHex(textContent);
 
                 await flashHex(hex);
+
+                hex = undefined;
             }
         }
     });
@@ -170,6 +176,8 @@ async function onUpdateClick(e: MouseEvent) {
 
     if (hex) {
         await flashHex(hex);
+        hex = undefined;
+        updateButton.disabled = true;
         return;
     }
 
@@ -205,11 +213,51 @@ async function onUpdateFileChange(e: Event) {
     hex = parseIntelHex(textContent);
 
     await flashHex(hex);
+
+    hex = undefined;
 }
 
 export function updateDeviceTitle(t: string) {
     settings.title = t;
     dtitle.value = t;
+}
+
+export async function updateDeviceVersion(fw: string, hw: string) {
+    settings.firmware_version = fw;
+    settings.hardware_version = hw;
+    dfw_version.textContent = fw;
+    dhw_version.textContent = hw;
+
+    hex = undefined;
+    updateButton.disabled = true;
+
+    try {
+        const resp = await fetch(`./fw4hw-${hw}.json?q=0`);
+
+        if (resp.ok) {
+            const fw_data = await resp.json();
+
+            const hex_fw = fw_data[0].fw;
+            if (hex_fw <= fw) {
+                return;
+            }
+
+            const hex_src = fw_data[0].src;
+            const hex_resp = await fetch(hex_src);
+            if (hex_resp.ok) {
+                const hex_text = await hex_resp.text();
+                hex = parseIntelHex(hex_text);
+
+                console.log('hex', hex);
+            }
+
+            console.log('fw_data', fw_data);
+        }
+    } catch (err: unknown) {
+        console.log('Failed to load fw_data', err);
+    }
+
+    updateButton.disabled = ! hex;
 }
 
 export function updateMIDIChannel(c: number) {

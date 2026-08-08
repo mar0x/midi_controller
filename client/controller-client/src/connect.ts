@@ -1,12 +1,13 @@
 import { updateProgram, updateProfile, selectProgram } from './progtable.ts'
 import { updateDeviceTitle, updateMIDIChannel, updateProgramStart,
-         updateChannelStart } from './main.ts'
+         updateChannelStart, updateDeviceVersion } from './main.ts'
 import { printLcd } from './vrEmuLcd.ts'
 import { Splitter } from './splitter.ts'
 import { ProgramDesc } from './program.ts'
 import { ProfileDesc } from './profile.ts'
 import { PortQueue } from './port_queue.ts'
 import { Flasher } from './avr109.ts'
+import { settings } from './settings.ts'
 
 let connect_btn: HTMLButtonElement | undefined;
 let port: SerialPort | undefined;
@@ -21,12 +22,14 @@ const midi_channel_re = /^MC (\d+)/;
 const prog_start_re = /^PS (\d+)/;
 const chan_start_re = /^CS (\d+)/;
 const device_title_re = /^DT "([^"]*)"/;
+const version_re = /^V "BD ([^"]*)" "BT ([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)"/;
 
 async function disconnect() {
     if (port) {
         try {
             await port.close();
         } catch (err: unknown) {
+            console.log("Port close", err);
         }
 
         port = undefined;
@@ -95,6 +98,8 @@ export function sendChannelStart(s: number) {
 async function readLoop() {
     const lines = new Splitter();
     lines.shift = true;
+    let profile_no = 0;
+    let max_prog_id = 0;
 
     while (port && port.readable) {
         reader = port.readable.getReader();
@@ -126,12 +131,27 @@ async function readLoop() {
             const prd = ProgramDesc.parseSerialLine(pr);
             if (prd) {
                 updateProgram(prd);
+                if (max_prog_id < prd.prog_id) {
+                    max_prog_id = prd.prog_id;
+                }
                 continue;
             }
 
             const pfd = ProfileDesc.parseSerialLine(pr);
             if (pfd) {
                 updateProfile(pfd);
+                if (profile_no == 1) {
+                    if (pfd.v0) {
+                        if (max_prog_id >= 199) {
+                            updateDeviceVersion('0', '2026.05.29');
+                        } else {
+                            updateDeviceVersion('0', '0');
+                        }
+                    } else {
+                        sendLine('V');
+                    }
+                }
+                ++profile_no;
                 continue;
             }
 
@@ -168,6 +188,13 @@ async function readLoop() {
             m = pr.match(device_title_re);
             if (m) {
                 updateDeviceTitle(m[1]);
+                continue;
+            }
+
+            m = pr.match(version_re);
+            if (m) {
+                settings.serial_num = m[5];
+                updateDeviceVersion(m[3], m[4]);
                 continue;
             }
         }
@@ -235,7 +262,12 @@ export function setupConnect(element: HTMLButtonElement) {
 export async function flashHex(hex: any) {
     console.log("hex: ", hex);
 
-    await disconnect();
+    if (reader) {
+        reader.releaseLock();
+        reader = undefined;
+    } else {
+        await disconnect();
+    }
 
     let p: SerialPort | undefined;
 
@@ -267,11 +299,12 @@ export async function flashHex(hex: any) {
     await f.prepare();
     console.log('prepare Ok');
 
-    await f.readee();
-    console.log('readee Ok');
+    //await f.readee();
+    //console.log('readee Ok');
 
-    //await f.program(hex.data);
-    //console.log('program Ok');
+    await f.program(hex.data);
+    console.log('program Ok');
+
     //await f.verify(hex.data);
     //console.log('verify Ok');
     await f.finish();
