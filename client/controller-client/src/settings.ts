@@ -3,6 +3,7 @@ export class Settings {
     channel: number = 0;
     program_start: number = 1;
     channel_start: number = 1;
+    midi_forward: boolean = false;
     firmware_version: string = '0';
     hardware_version: string = '0';
     serial_num: string = '';

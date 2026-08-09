@@ -1,6 +1,6 @@
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { setupConnect, sendDeviceTitle, sendMIDIChannel,
+import { setupConnect, sendDeviceTitle, sendMIDIChannel, sendMIDIForward,
          sendProgramStart, sendChannelStart, flashHex } from './connect.ts'
 import { onDownloadClick, onUploadClick, processFileText } from './progtable.ts'
 import type { HTMLUploadButtonElement } from './progtable.ts'
@@ -60,7 +60,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                         <div class="invalid-feedback">${invalidChannelFeedback()}</div>
                     </td>
                 </tr>
-                <tr><th>MIDI Forward</th><td><input type="checkbox" checked/></td></tr>
+                <tr><th>MIDI Forward</th><td><input id="midi-forward" type="checkbox"/></td></tr>
                 <tr><th>Channel Start</th><td>
                     <select class="form-select form-select-sm" id="device-channel-start">
                         <option value="0">0</option>
@@ -112,6 +112,7 @@ printLcd("Disconnected ...", "");
 
 const dtitle = document.querySelector(`#device-title`) as EditableCell;
 const dchannel = document.querySelector(`#device-channel`) as EditableCell;
+const midi_forward = document.querySelector(`#midi-forward`) as HTMLInputElement;
 const dprogstart = document.querySelector(`#device-program-start`) as HTMLSelectElement;
 const dchanstart = document.querySelector(`#device-channel-start`) as HTMLSelectElement;
 const dfw_version = document.querySelector(`#device-fw`) as HTMLTableCellElement;;
@@ -265,6 +266,11 @@ export function updateMIDIChannel(c: number) {
     dchannel.value = `${settings.channel + settings.channel_start}`;
 }
 
+export function updateMIDIForward(f: boolean) {
+    settings.midi_forward = f;
+    midi_forward.checked = f;
+}
+
 export function updateProgramStart(start: number) {
     if (start != settings.program_start) {
         settings.program_start = start;
@@ -309,6 +315,12 @@ function onDeviceChannelUpdate(e: Event) {
     }
 }
 dchannel.addEventListener('textUpdate', onDeviceChannelUpdate);
+
+function onMIDIForwardChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    sendMIDIForward(target.checked);
+}
+midi_forward.addEventListener('change', onMIDIForwardChange);
 
 function onDeviceProgramStartUpdate(e: Event) {
     const target = e.target as HTMLSelectElement;

@@ -1,6 +1,7 @@
 import { updateProgram, updateProfile, selectProgram } from './progtable.ts'
 import { updateDeviceTitle, updateMIDIChannel, updateProgramStart,
-         updateChannelStart, updateDeviceVersion } from './main.ts'
+         updateChannelStart, updateDeviceVersion,
+         updateMIDIForward } from './main.ts'
 import { printLcd } from './vrEmuLcd.ts'
 import { Splitter } from './splitter.ts'
 import { ProgramDesc } from './program.ts'
@@ -19,6 +20,7 @@ const decoder = new TextDecoder();
 const display_re = /^D (\d+) (.{16})(.{16})/;
 const prog_change_re = /^PC (\d+) (\d+)/;
 const midi_channel_re = /^MC (\d+)/;
+const midi_forward_re = /^MF (\d+)/;
 const prog_start_re = /^PS (\d+)/;
 const chan_start_re = /^CS (\d+)/;
 const device_title_re = /^DT "([^"]*)"/;
@@ -80,6 +82,13 @@ export function sendDeviceTitle(t: string) {
 export function sendMIDIChannel(c: number) {
     if (!sendLine(`MC ${c}`)) {
         updateMIDIChannel(c);
+    }
+}
+
+export function sendMIDIForward(f: boolean) {
+    if (!(settings.firmware_version >= '2026.08.09' &&
+          sendLine(`MF ${f ? 1 : 0}`))) {
+        updateMIDIForward(f);
     }
 }
 
@@ -173,6 +182,12 @@ async function readLoop() {
                 continue;
             }
 
+            m = pr.match(midi_forward_re);
+            if (m) {
+                updateMIDIForward(Number(m[1]) != 0);
+                continue;
+            }
+
             m = pr.match(prog_start_re);
             if (m) {
                 updateProgramStart(Number(m[1]));
@@ -195,6 +210,9 @@ async function readLoop() {
             if (m) {
                 settings.serial_num = m[5];
                 updateDeviceVersion(m[3], m[4]);
+                if (settings.firmware_version >= '2026.08.09') {
+                    sendLine('MF');
+                }
                 continue;
             }
         }
