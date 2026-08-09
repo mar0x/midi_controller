@@ -96,8 +96,8 @@ private:
     };
 
     uint8_t cmd_[MAX_SIZE];
-    uint8_t size_ = 0;
-    bool sys_ex_ = false;
+    uint8_t size_;
+    bool sys_ex_;
 };
 
 }

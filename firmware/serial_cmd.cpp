@@ -108,7 +108,7 @@ serial_cmd_t::parse() {
             //if (b[0] == 'F' && b[1] == 'W') { command_ = SCMD_FIRMWARE; }
             //if (b[0] == 'H' && b[1] == 'W') { command_ = SCMD_HARDWARE; }
             //if (b[0] == 'M' && b[1] == 'D') { command_ = SCMD_MODE; }
-            //if (b[0] == 'M' && b[1] == 'F') { command_ = SCMD_MIDI_FORWARD; }
+            if (b[0] == 'M' && b[1] == 'F') { command_ = SCMD_MIDI_FORWARD; }
             //if (b[0] == 'M' && b[1] == 'O') { command_ = SCMD_MIDI_PROG_OUT; }
             //if (b[0] == 'N' && b[1] == 'M') { command_ = SCMD_NAME; }
             if (b[0] == 'P') {

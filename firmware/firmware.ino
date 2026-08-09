@@ -578,6 +578,7 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
         return;
     }
 
+/*
     if (cmd.command() == SCMD_BTN_HOLD) {
         set_mode(MODE_SETTINGS_FACTORY_RESET);
         current_mode()->on_ok_hold();
@@ -586,6 +587,7 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
         }
         return;
     }
+*/
 
     if (cmd.command() == SCMD_VERSION) {
         if (output_reply) {
@@ -596,10 +598,32 @@ void process_cmd(const serial_cmd_t &cmd, bool output_reply) {
         }
         return;
     }
+
+    if (cmd.command() == SCMD_MIDI_FORWARD) {
+        uint8_t f = settings.midi_fwd;
+
+        if (cmd.get_arg(1, f)) {
+            if (f != 0 && f != 1) {
+                if (output_reply) serial_reply(false, cmd);
+                return;
+            }
+
+            settings.midi_fwd = f;
+            storage::write(settings, settings.midi_fwd);
+        }
+
+        if (output_reply) {
+            serial_reply(true, cmd, f);
+        }
+        return;
+    }
+
+    if (output_reply) serial_reply(false, cmd);
 }
 
 serial_cmd_t serial_cmd;
 bool serial_dtr;
+midi_cmd_t fwd_cmd;
 
 }
 
@@ -623,6 +647,7 @@ void setup() {
     Serial.begin(115200);
 
     serial_dtr = Serial.dtr();
+    fwd_cmd.reset();
 
     stimer::callback(STIMER_DISPLAY_UPDATE, update_display);
     stimer::callback(STIMER_DELAY_MIDI_PROGRAM, midi_program);
@@ -674,6 +699,22 @@ void loop() {
 
             return;
         }
+    }
+
+    while (!fwd_cmd.ready() && Serial1.available()) {
+        int c = Serial1.read();
+        fwd_cmd.read(c);
+
+        led::blink_down();
+
+        if (settings.midi_fwd) {
+            Serial1.write(c);
+        }
+    }
+
+    if (fwd_cmd.ready()) {
+        fwd_cmd.reset();
+        // TODO: flush queue
     }
 
     artl::yield();

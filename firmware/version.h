@@ -1,6 +1,6 @@
 #pragma once
 
-#define FW_VERSION "2026.08.08"
+#define FW_VERSION "2026.08.09"
 
 #include "prog_var.h"
 
