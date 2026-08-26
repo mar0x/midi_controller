@@ -22,3 +22,11 @@ jobs:
           sketch-paths: ./firmware/
           libraries: |
             -
+          verbose: true
+          cli-compile-flags: |
+            - --build-property
+            - compiler.c.elf.extra_flags=-g
+            - --build-property
+            - build.usb_manufacturer="MVR-Electronic.ru"
+            - --build-property
+            - build.usb_product="MIDI Controller"
