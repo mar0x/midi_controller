@@ -16,7 +16,7 @@ jobs:
 
       # For more information: https://github.com/arduino/compile-sketches#readme
       - name: Compile sketch
-        uses: arduino/compile-sketches@v1
+        uses: mar0x/compile-sketches@v1
         with:
           fqbn: arduino:avr:leonardo
           sketch-paths: ./firmware/
@@ -24,9 +24,17 @@ jobs:
             -
           verbose: true
           cli-compile-flags: |
+            - --build-path
+            - ${{ github.workspace }}/firmware/build
             - --build-property
             - compiler.c.elf.extra_flags=-g
             - --build-property
             - build.usb_manufacturer="MVR-Electronic.ru"
             - --build-property
             - build.usb_product="MIDI Controller"
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v7
+        with:
+          name: midi-controller-firmware
+          path: ${{ github.workspace }}/firmware/build/*
