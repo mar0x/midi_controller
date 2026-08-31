@@ -38,3 +38,23 @@ jobs:
         with:
           name: midi-controller-firmware
           path: ${{ github.workspace }}/firmware/build/*
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          cache: npm
+          cache-dependency-path: ./client/controller-client
+
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: ./client/controller-client
+
+      - name: Build Project
+        run: npm run build
+        working-directory: ./client/controller-client
+
+      - name: Upload client
+        uses: actions/upload-artifact@v7
+        with:
+          name: midi-controller-client
+          path: ./client/controller-client/dist
